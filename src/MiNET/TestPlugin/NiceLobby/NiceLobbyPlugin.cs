@@ -342,7 +342,7 @@ namespace TestPlugin.NiceLobby
 					player.AddPopup(new Popup()
 					{
 						MessageType = MessageType.Tip,
-						Message = $"{ChatFormatting.Bold}This is a MiNET development server",
+						Message = $"{ChatFormatting.Bold}This is a BlockParty minigame server",
 						Duration = 20*4
 					});
 
