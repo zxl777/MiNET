@@ -99,8 +99,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 
-    <Content Include="deploy.ps1" />
-    <Content Include="before-deploy.ps1" />
+    <Content Include="deploy.ps1">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="before-deploy.ps1">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
 
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
