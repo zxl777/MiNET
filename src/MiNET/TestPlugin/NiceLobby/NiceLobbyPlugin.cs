@@ -127,12 +127,26 @@ namespace TestPlugin.NiceLobby
 			{
 				case GameMoments.Hub:
                     Log.Warn("大厅等待游戏开始...");
+					var players = BlockPartyLevel.GetSpawnedPlayers();
+					if (players.Length==0)
+					{
+						Seconds ++;
+						break;
+					}
+						
+
 					
 					if (Seconds==0) 
 					{
 						When = GameMoments.Prepare;
 						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Ready ...");
 						Seconds = 1;
+
+						
+						foreach (var player in players)
+						{
+							Tp2Map48(player);
+						}
 					}	
 				break;
 
