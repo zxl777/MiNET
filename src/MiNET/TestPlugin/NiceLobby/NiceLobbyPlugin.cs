@@ -39,6 +39,8 @@ namespace TestPlugin.NiceLobby
         Level BlockPartyLevel;
 		string Jsonfile = "0.json";
 
+		int[,] map48=new int [48,48];
+
 		[UsedImplicitly] private Timer _popupTimer;
 		[UsedImplicitly] private Timer _GameTimer;
 
@@ -195,9 +197,11 @@ namespace TestPlugin.NiceLobby
         	int width = 48;
         	int height = 48;
         	BlockCoordinates center = new BlockCoordinates(Convert.ToInt32(42), Convert.ToInt32(67), Convert.ToInt32(-24));
-			
+
 			string json = System.IO.File.ReadAllText($"C:\\appveyor\\projects\\map\\mapjson\\{Jsonfile}");
-			var ja = JArray.Parse(json);
+			// var ja = JArray.Parse(json);
+
+			map48 = JArray.Parse(json);
 
 			for (int x = 0; x < width; x++)
         	{
@@ -209,7 +213,7 @@ namespace TestPlugin.NiceLobby
         			{
                              //Coordinates = coor, Metadata = 15
                              Coordinates = coor,
-                             Metadata = (Byte)ja[x][y]
+                             Metadata = (Byte)map48[x][y]
                          };
 
         			BlockPartyLevel.SetBlock(colorBlock, true);
@@ -224,8 +228,8 @@ namespace TestPlugin.NiceLobby
         	int height = 48;
         	BlockCoordinates center = new BlockCoordinates(Convert.ToInt32(42), Convert.ToInt32(67), Convert.ToInt32(-24));
 
-			string json = System.IO.File.ReadAllText($"C:\\appveyor\\projects\\map\\mapjson\\{Jsonfile}");
-			var ja = JArray.Parse(json);
+			// string json = System.IO.File.ReadAllText($"C:\\appveyor\\projects\\map\\mapjson\\{Jsonfile}");
+			// var ja = JArray.Parse(json);
 
 			for (int x = 0; x < width; x++)
         	{
@@ -233,7 +237,7 @@ namespace TestPlugin.NiceLobby
         		{
 					BlockCoordinates coor = new BlockCoordinates(center.X - x, center.Y ,center.Z + height - y - 1);
 
-					if ((int)ja[x][y]==15) continue;
+					if ((int)map48[x][y]==15) continue;
 					else
 					BlockPartyLevel.SetBlock(new Air() {Coordinates = coor});
         		}
