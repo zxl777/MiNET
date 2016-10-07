@@ -98,16 +98,6 @@
     <Content Include="texturemap_redux.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-
-    <Content Include="deploy.ps1">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-
-    <Content Include="before-deploy.ps1">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-
-
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

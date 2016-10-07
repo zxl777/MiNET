@@ -8,6 +8,7 @@ using System.Numerics;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using log4net;
 using MiNET;
 using MiNET.BlockEntities;
@@ -31,17 +32,26 @@ namespace TestPlugin.NiceLobby
 	public class NiceLobbyPlugin : Plugin
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof (NiceLobbyPlugin));
+        //Log.Info("NiceLobbyPlugin");
+
+        GameMoments When;
+		int Seconds;
+        Level BlockPartyLevel;
+		string Jsonfile = "0.json";
 
 		[UsedImplicitly] private Timer _popupTimer;
-		[UsedImplicitly] private Timer _tickTimer;
+		[UsedImplicitly] private Timer _GameTimer;
+
+		[UsedImplicitly] private Timer _GameTick;
 
 		private long _tick = 0;
 
 		protected override void OnEnable()
 		{
 			var server = Context.Server;
+            Log.Warn("OnEnable");
 
-			server.LevelManager.LevelCreated += (sender, args) =>
+            server.LevelManager.LevelCreated += (sender, args) =>
 			{
 				Level level = args.Level;
 				//level.AllowBuild = false;
@@ -58,8 +68,201 @@ namespace TestPlugin.NiceLobby
 				player.PlayerLeave += OnPlayerLeave;
 			};
 
-			_popupTimer = new Timer(DoDevelopmentPopups, null, 10000, 20000);
+			//_popupTimer = new Timer(DoDevelopmentPopups, null, 10000, 20000);
 			//_tickTimer = new Timer(LevelTick, null, 0, 50);
+
+			NewWorld();
+
+			When =GameMoments.Hub;
+			Seconds = 10;
+			ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Waitting Start...");
+
+			_GameTimer = new Timer(GameTick, null, 1000, 2000);
+		}
+
+        enum GameMoments
+        {
+			Hub,
+			Prepare,
+            Waitting,
+            Moving,
+            Stop
+        }
+        
+        private void GameTick(object state)
+		{
+			Seconds --;
+			switch(When)
+			{
+				case GameMoments.Hub:
+                    Log.Warn("大厅等待游戏开始...");
+					
+					if (Seconds==0) 
+					{
+						When = GameMoments.Prepare;
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Ready ...");
+						Seconds = 1;
+					}	
+				break;
+
+				case GameMoments.Prepare:
+                    Log.Warn("准备...");
+					
+					if (Seconds==0) 
+					{
+						When = GameMoments.Moving;
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=====RED=====");					
+						Seconds = 5;
+						ChangeMap();
+					}	
+				break;
+
+				case GameMoments.Moving:
+                    Log.Warn("移动，找到正确方块...");
+					
+					if (Seconds==0) 
+					{
+						When = GameMoments.Stop;
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Stop!");
+						Seconds = 2;
+						DigMap();
+					}
+					else if (Seconds == 4)
+					{
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"====RED====");
+					}
+					else if (Seconds == 3)
+					{
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"===RED===");
+					}
+					else if (Seconds == 2)
+					{
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"==RED==");
+					}
+					else if (Seconds == 1)
+					{
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=RED=");
+					}
+
+
+				break;
+
+				case GameMoments.Stop:
+                    Log.Warn("静止不动");
+					
+					if (Seconds==0) 
+					{
+						When = GameMoments.Waitting;
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Waiting...");
+						Seconds = 1;
+						ChangeMap();
+					}	
+				break;
+
+				case GameMoments.Waitting:
+                    Log.Warn("等待...");
+					
+					if (Seconds==0) 
+					{
+						When = GameMoments.Moving;
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=====RED=====");
+						Seconds = 5;
+					}	
+				break;				
+				
+			}
+
+		}
+
+
+		public void ShowInfo(Player[] players,string message)
+		{
+			// var players = currentPlayer.Level.GetSpawnedPlayers();
+			foreach (var player in players)
+			{
+				player.ClearPopups();
+				player.AddPopup(new Popup() 
+				{
+					//Priority = 100, MessageType = MessageType.Popup, Message = $"{ChatFormatting.Bold}{message}", Duration = 20*10,
+					Priority = 100, MessageType = MessageType.Popup, Message = message, Duration = 20*10,
+				});
+			}
+		}
+
+
+        public void ChangeMap()
+        {
+        	int width = 48;
+        	int height = 48;
+        	BlockCoordinates center = new BlockCoordinates(Convert.ToInt32(42), Convert.ToInt32(67), Convert.ToInt32(-24));
+			
+			string json = System.IO.File.ReadAllText($"C:\\appveyor\\projects\\map\\mapjson\\{Jsonfile}");
+			var ja = JArray.Parse(json);
+
+			for (int x = 0; x < width; x++)
+        	{
+        		for (int y = 0; y < height; y++)
+        		{
+        			BlockCoordinates coor = new BlockCoordinates(center.X - x, center.Y ,center.Z + height - y - 1);
+
+        			StainedHardenedClay colorBlock = new StainedHardenedClay 
+        			{
+                             //Coordinates = coor, Metadata = 15
+                             Coordinates = coor,
+                             Metadata = (Byte)ja[x][y]
+                         };
+
+        			BlockPartyLevel.SetBlock(colorBlock, true);
+        		}
+        	}
+        }
+
+
+        public void DigMap()
+        {
+        	int width = 48;
+        	int height = 48;
+        	BlockCoordinates center = new BlockCoordinates(Convert.ToInt32(42), Convert.ToInt32(67), Convert.ToInt32(-24));
+
+			string json = System.IO.File.ReadAllText($"C:\\appveyor\\projects\\map\\mapjson\\{Jsonfile}");
+			var ja = JArray.Parse(json);
+
+			for (int x = 0; x < width; x++)
+        	{
+        		for (int y = 0; y < height; y++)
+        		{
+					BlockCoordinates coor = new BlockCoordinates(center.X - x, center.Y ,center.Z + height - y - 1);
+
+					if ((int)ja[x][y]==15) continue;
+					else
+					BlockPartyLevel.SetBlock(new Air() {Coordinates = coor});
+        		}
+        	}
+        }		
+
+        private void kk()
+		{
+			foreach (var level in Context.LevelManager.Levels)
+			{
+				var players = level.GetSpawnedPlayers();
+				foreach (var player in players)
+				{
+					player.AddPopup(new Popup()
+					{
+						MessageType = MessageType.Tip,
+						Message = $"{ChatFormatting.Bold}Game Starting....",
+						Duration = 20*4
+					});
+
+					player.AddPopup(new Popup()
+					{
+						MessageType = MessageType.Popup,
+						Message = "\nOK11",
+						Duration = 20*5,
+						DisplayDelay = 20*1
+					});
+				}
+			}
 		}
 
 		private void OnPlayerLeave(object o, PlayerEventArgs eventArgs)
@@ -80,6 +283,10 @@ namespace TestPlugin.NiceLobby
 
 			Player player = eventArgs.Player;
 			if (player == null) throw new ArgumentNullException(nameof(eventArgs.Player));
+
+			// NewWorld(player);
+			Log.Warn(BlockPartyLevel.LevelId);
+			player.SpawnLevel(BlockPartyLevel);
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Green}+{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
 		}
@@ -342,7 +549,7 @@ namespace TestPlugin.NiceLobby
 					player.AddPopup(new Popup()
 					{
 						MessageType = MessageType.Tip,
-						Message = $"{ChatFormatting.Bold}iToyToy BlockParty server!",
+						Message = $"{ChatFormatting.Bold}This is a iToyToy MineGame server",
 						Duration = 20*4
 					});
 
@@ -610,6 +817,128 @@ namespace TestPlugin.NiceLobby
 			//player.Level.BroadcastMessage(string.Format("{0} teleported to coordinates {1},{2},{3}.", player.Username, x, y, z), type: MessageType.Raw);
 		}
 
+        [Command(Command = "ee")]
+        public void TpWorld(Player player)
+        {
+            ThreadPool.QueueUserWorkItem(delegate (object state)
+            {
+                player.Teleport(new PlayerLocation
+                {
+                    X = -6,
+                    Y = 68,
+                    Z = -23,
+                    Yaw = 91,
+                    Pitch = 28,
+                    HeadYaw = 91
+                });
+            }, null);
+
+            player.Level.BroadcastMessage("{0} teleported", type: MessageType.Raw);
+        }
+        
+        
+
+		[Command(Command = "tt")]
+		public void NewWorld(Player player)
+		{
+			Level level = Context.LevelManager.Levels.FirstOrDefault(l => l.LevelId.Equals("example", StringComparison.InvariantCultureIgnoreCase));
+
+            //Log.Warn(level.LevelId);
+
+            if (level == null)
+			{
+				Log.Warn("新建地图");
+				var provider = new AnvilWorldProvider("C:\\appveyor\\projects\\map\\BlockParty");
+				level = new Level("example", provider);
+
+				level.Initialize();
+				Context.LevelManager.Levels.Add(level);
+			}
+            level.SpawnPoint = new PlayerLocation(Convert.ToInt32(-6), Convert.ToInt32(68), Convert.ToInt32(-23));
+            player.SpawnLevel(level);
+
+			BlockPartyLevel = level;
+		}
+
+		public void NewWorld()
+		{
+			Log.Warn("新建地图");
+			var provider = new AnvilWorldProvider("C:\\appveyor\\projects\\map\\BlockParty");
+            Level level = new Level("example", provider);
+
+			level.Initialize();
+			Context.LevelManager.Levels.Add(level);
+            level.SpawnPoint = new PlayerLocation(Convert.ToInt32(-6), Convert.ToInt32(68), Convert.ToInt32(-23));
+
+			BlockPartyLevel = level;
+		}
+
+
+// 		{
+// 				GameMode gameMode = Config.GetProperty("GameMode", GameMode.Survival);
+// 				Difficulty difficulty = Config.GetProperty("Difficulty", Difficulty.Peaceful);
+// 				int viewDistance = Config.GetProperty("ViewDistance", 11);
+
+// 				IWorldProvider worldProvider = new AnvilWorldProvider(Config.GetProperty("PCWorldFolder", "world"));
+
+// 				Level level = new Level("BlockParty", worldProvider, gameMode, difficulty, viewDistance);
+// 				level.Initialize();
+
+
+// 				Context.LevelManager.Levels.Add(level);
+				
+// 				player.SpawnPosition = new PlayerLocation(Convert.ToInt32(-6),Convert.ToInt32(68), Convert.ToInt32(-23));
+// 			    // player.SendSetSpawnPosition();
+// 				// player.Level.SpawnPoint = new Coordinates3D(Convert.ToInt32(-6),Convert.ToInt32(68), Convert.ToInt32(-23));
+
+// 			    player.SpawnLevel(level);
+
+// 				player.Level.BroadcastMessage($"{player.Username} set new spawn position.", type: MessageType.Raw);
+				
+// player.KnownPosition.X = player.SpawnPosition.X;
+// player.KnownPosition.Y = player.SpawnPosition.Y;
+// player.KnownPosition.Z = player.SpawnPosition.Z;
+// player.SendMovePlayer();
+
+// 		}
+
+		[Command(Command = "u")]
+		public void UpdateBlocks(Player player)
+		{
+			int width = 48;
+			int height = 48;
+			var level = player.Level;
+			BlockCoordinates center = player.KnownPosition.GetCoordinates3D();
+
+            string json = System.IO.File.ReadAllText("C:\\appveyor\\projects\\map\\mapjson\\blocks.json");
+            var ja = JArray.Parse(json);
+
+            for (int x = 0; x < width; x++)
+			{
+				for (int y = 0; y < height; y++)
+				{
+					BlockCoordinates coor = new BlockCoordinates(center.X - x, center.Y ,center.Z + height - y - 1);
+					
+					StainedHardenedClay colorBlock = new StainedHardenedClay 
+					{
+                        //Coordinates = coor, Metadata = 15
+                        Coordinates = coor,
+                        Metadata = (Byte)ja[x][y]
+                    };
+
+					player.Level.SetBlock(colorBlock, true);
+				}
+			}
+		}
+
+		private static JArray Json2Bytes(string jsonfile)
+		{
+			
+            string json = System.IO.File.ReadAllText("C:\\appveyor\\projects\\map\\mapjson\\blocks.json");
+            var ja = JArray.Parse(json);
+            return ja;
+		} 
+
 
 		[Command]
 		[Authorize(Users = "gurun")]
@@ -774,6 +1103,7 @@ namespace TestPlugin.NiceLobby
 
 							var itemFrame = new CustomItemFrame(frames, itemFrameBlockEntity, level, frameTicker) {Coordinates = frambc, Metadata = 3};
 							level.SetBlock(itemFrame);
+                            
 							level.SetBlockEntity(itemFrameBlockEntity);
 						}
 					}

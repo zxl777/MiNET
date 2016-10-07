@@ -320,8 +320,8 @@ namespace TestPlugin
 		[Command(Command = "twitter")]
 		public void Twitter(Player player)
 		{
-			player.Level.BroadcastMessage("§6Twitter @NiclasOlofsson", type: MessageType.Raw);
-			player.Level.BroadcastMessage("§5twitch.tv/niclasolofsson", type: MessageType.Raw);
+			player.Level.BroadcastMessage("ï¿½6Twitter @NiclasOlofsson", type: MessageType.Raw);
+			player.Level.BroadcastMessage("ï¿½5twitch.tv/niclasolofsson", type: MessageType.Raw);
 		}
 
 		[Command(Command = "pi")]
@@ -757,7 +757,7 @@ namespace TestPlugin
 			}
 		}
 
-		private byte _invId = 0;
+		//private byte _invId = 0;
 
 		[Command(Command = "oi")]
 		public void OpenInventory(Player player)
