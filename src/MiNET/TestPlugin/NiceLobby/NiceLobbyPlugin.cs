@@ -247,7 +247,7 @@ namespace TestPlugin.NiceLobby
         		{
 					BlockCoordinates coor = new BlockCoordinates(center.X - x, center.Y ,center.Z + height - y - 1);
 
-					if ((int)map48[x][y]==15) continue;
+					if ((int)map48[x,y]==15) continue;
 					else
 					BlockPartyLevel.SetBlock(new Air() {Coordinates = coor});
         		}
