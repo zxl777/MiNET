@@ -119,6 +119,9 @@ namespace TestPlugin.NiceLobby
 							HeadYaw = 90
 						});
 					}, null);
+
+					When = GameMoments.Hub;
+					Seconds = 5;
 				}
 			}
 			
@@ -133,7 +136,7 @@ namespace TestPlugin.NiceLobby
 						break;
 					}
 						
-
+					ShowInfo(players,"Waitting for Game Start ...");
 					
 					if (Seconds==0) 
 					{
@@ -243,7 +246,7 @@ namespace TestPlugin.NiceLobby
 				player.Teleport(new PlayerLocation
 				{
 					X = center.X - rd.Next()%48,
-					Y = -24,
+					Y = 68,
 					Z = center.Z + 48 - rd.Next()%48 - 1,
 					Yaw = 90,
 					Pitch = 20,
