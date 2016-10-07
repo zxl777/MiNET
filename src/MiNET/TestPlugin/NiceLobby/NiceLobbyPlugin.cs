@@ -39,7 +39,7 @@ namespace TestPlugin.NiceLobby
         Level BlockPartyLevel;
 		string Jsonfile = "0.json";
 
-		int[,] map48=new int [48,48];
+		int [][] map48=new int [48][48];
 
 		[UsedImplicitly] private Timer _popupTimer;
 		[UsedImplicitly] private Timer _GameTimer;
