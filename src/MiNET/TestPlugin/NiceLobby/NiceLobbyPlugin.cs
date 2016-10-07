@@ -101,7 +101,8 @@ namespace TestPlugin.NiceLobby
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			foreach (var player in players)
 			{
-				if (player.IsFalling)
+				// if (player.IsFalling)
+				if (player.KnownPosition.Y<50)
 				{
 					// player.SpawnLevel(BlockPartyLevel);
 					// player.HealthManager.Kill();
