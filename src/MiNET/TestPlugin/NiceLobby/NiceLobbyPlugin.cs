@@ -25,7 +25,8 @@ using MiNET.Plugins.Attributes;
 using MiNET.Utils;
 using MiNET.Worlds;
 using TestPlugin.Annotations;
-using MiNET.ShootSound;
+using MiNET.Sounds;
+
 
 namespace TestPlugin.NiceLobby
 {
