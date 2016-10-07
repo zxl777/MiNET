@@ -41,6 +41,7 @@ namespace TestPlugin.NiceLobby
 
 		int [,] map48=new int [48,48];
 
+
 		[UsedImplicitly] private Timer _popupTimer;
 		[UsedImplicitly] private Timer _GameTimer;
 
@@ -93,8 +94,20 @@ namespace TestPlugin.NiceLobby
         
         private void GameTick(object state)
 		{
-			// IsFalling
+			// 
 
+			foreach (var level in Context.LevelManager.Levels)
+			{
+				var players = level.GetSpawnedPlayers();
+				foreach (var player in players)
+				{
+					if (player.IsFalling)
+					{
+						player.HealthManager.Kill();
+					}
+				}
+			}
+			
 			Seconds --;
 			switch(When)
 			{

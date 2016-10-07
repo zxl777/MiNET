@@ -1,0 +1,448 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"http",
+				"https"
+			],
+			[
+				"e",
+				"Error"
+			],
+			[
+				"E",
+				"Error"
+			],
+			[
+				"err",
+				"errorCode"
+			],
+			[
+				"to",
+				"toString"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"la",
+				"language"
+			],
+			[
+				"ti",
+				"timezone"
+			],
+			[
+				"sen",
+				"sendtext"
+			],
+			[
+				"tok",
+				"token"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/MiNET/TestPlugin/NiceLobby/NiceLobbyPlugin.cs",
+			"settings":
+			{
+				"buffer_size": 33779,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: s",
+				"Package Control: List Packages"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"ls"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/iWork/iFocus/Minecraft/MineServer for Minecraft Free - Multiplayer Server",
+		"/iWork/MiNETOpenSource/src/MiNET/MiNET.Service/server.conf",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/B06EF5F6-FC23-485D-AEF1-0D257BFB3494/server.conf",
+		"/Users/sky/Downloads/软碟通(UltraISO)_国际版_PChome下载介绍.txt",
+		"/Users/sky/Library/Preferences/com.google.SymbolUpload.plist",
+		"/iWork/iFocus/Minecraft-PE-Servers.github.io/_layouts/apppage.html",
+		"/iWork/iFocus/Minecraft-PE-Servers.github.io/_layouts/ad.html",
+		"/Users/sky/Downloads/minet-server/MiNET.Service.exe.config",
+		"/Users/sky/Downloads/minet-server/server.conf",
+		"/temp/未命名文件夹/cc/leet/economy/Economy.class",
+		"/iWork/iFocus/Minecraft/iToyToyPM插件开发/plugins/DevTools/WorldEdit_v2.0.0 TRANSLATE BY ZIKEN/src/WorldEdit/WorldEdit.php",
+		"/Users/sky/Downloads/FirebaseChat/RelatedChat/app/GoogleService-Info.plist",
+		"/Users/sky/Downloads/Potatso/Podfile",
+		"/iWork/iFocus/Minecraft/PEServersApp/Pods/FirebaseCrash/upload-sym",
+		"/iWork/iFocus/Minecraft/PEServersApp/Pods/FirebaseCrash/upload-sym.sh",
+		"/iWork/iFocus/Minecraft-PE-Servers.github.io/_layouts/fb.html",
+		"/Users/sky/Downloads/ktplay_ios_sdk_INTL_v2.4.0(1)/Utils/apply2xcode.py",
+		"/iWork/iFocus/Minecraft/iToyToyPM插件开发/plugins/HereAuth/messages.yml",
+		"/iWork/iFocus/Minecraft/iToyToyPM插件开发/plugins/SimpleAuth/config.yml",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/0FA001D9-80FA-4DE0-8348-4832DECEB1C1/nginx.conf",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/D7F60019-A5D8-45F2-9898-75C45C619AA0/nginx.sh",
+		"/iWork/iFocus/Minecraft/PEServersApp/P2PLab.storyboard",
+		"/iWork/iFocus/Minecraft/PEServersApp/PEServers/Images-2.xcassets/AppIcon.appiconset/Contents.json",
+		"/temp/中转/aa",
+		"/Users/sky/Downloads/dSYMs/0E3640DF-D31C-3AA8-8FB2-BA01CC6DFD1F.dSYM/Contents/Resources/0E3640DF-D31C-3AA8-8FB2-BA01CC6DFD1F.plist",
+		"/iWork/iFocus/Minecraft-PE-Servers.github.io/_layouts/post.html",
+		"/Users/sky/Library/Preferences/com.google.SymbolUploadToken.plist",
+		"/Users/sky/Downloads/apprtc-ios/AppRTC.podspec",
+		"/Users/sky/Downloads/quickstart-ios-master/analytics/Podfile",
+		"/iWork/iFocus/Nukkit/runserver/server.properties",
+		"/iWork/iFocus/Minecraft/pepush.p12",
+		"/iWork/PocketMine-MP/src/pocketmine/scheduler/SendUsageTask.php",
+		"/Users/sky/.ShadowsocksX/gfwlist.js",
+		"/Users/sky/Downloads/redis-tagging-master/index.js",
+		"/iWork/iFocus/Minecraft/PEServersAPI/app.js",
+		"/Users/sky/BitTorrent Sync/power777888/plugins/Protection_v1.5.1/plugin.yml",
+		"/iWork/iFocus/Minecraft/PEServersAPI/pub/app.js",
+		"/iWork/iFocus/Minecraft-PE-Servers.github.io/_layouts/default.html",
+		"/iWork/iFocus/Minecraft-PE-Servers.github.io/_config.yml",
+		"/iWork/iFocus/Minecraft-PE-Servers.github.io/index.html",
+		"/Users/sky/Downloads/Minetrack-master 2/node_modules/mcpe-ping/index.js",
+		"/iWork/iFocus/Minecraft/PM/plugins/EconomyLand/language.properties",
+		"/iWork/iFocus/Minecraft/PM/plugins/EconomyAPI/language.properties",
+		"/iWork/iFocus/Minecraft/PM/plugins/EconomyLand/Land.yml",
+		"/iWork/iFocus/Minecraft/PM/plugins/EconomyAPI/economy.properties",
+		"/iWork/iFocus/Minecraft/PM/plugins/EconomyAPI/PlayerLang.dat",
+		"/iWork/iFocus/Minecraft/PM/plugins/EconomyAPI/command.yml",
+		"/iWork/iFocus/Minecraft/PM/plugins/EconomyLand/config.yml",
+		"/temp/PM/plugins/FloatingText/config.yml",
+		"/temp/PM/plugins/DevTools/AshMan_v1.0.1/src/FCleaner/Main.php",
+		"/Users/sky/Downloads/2015-12-2前/一套很全的插件包/插件/服务器插件大集合[97个]/饥饿游戏插件/PocketHungerGames.php",
+		"/temp/PM/server.log",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/1503282F-CE15-4CBC-A069-67FBCFD1831F/config.yml",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/34817949-E896-4C2E-ADA3-80C0A93EF99E/config.yml",
+		"/iWork/iFocus/EmojiKeyboard3/EmojiKeyboard3/iOS Keyboards Example/moremojis.json",
+		"/iWork/iFocus/EmojiKeyboard3/EmojiKeyboard3/Node.js/moremojis.json",
+		"/iWork/iFocus/EmojiKeyboard3/EmojiKeyboard3/Node.js/my.json",
+		"/iWork/商业项目/EmojiKeyboard3/web/style.css",
+		"/iWork/商业项目/EmojiKeyboard3/web/emoji-help.html",
+		"/iWork/商业项目/EmojiKeyboard3/EmojiKeyboard3/fastlane/Fastfile",
+		"/iWork/商业项目/EmojiKeyboard3/web/script.js",
+		"/iWork/商业项目/EmojiKeyboard3/EmojiKeyboard3/Node.js/makejson.js",
+		"/iWork/商业项目/EmojiKeyboard3/EmojiKeyboard3/iOS Keyboards Example/EmojiAddedApp/Images.xcassets/Brand Assets.launchimage/Contents.json",
+		"/iWork/商业项目/EmojiKeyboard3/EmojiKeyboard3/Node.js/my.json",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/B5B2D6FE-6C7F-4B39-BCA6-FE955D5CFDC2/emoji-help.html",
+		"/Users/sky/Downloads/一套很全的插件包/插件/整体说明插件/称号插件/使用说明.txt",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/9309CCAE-72DF-4387-BB1A-7FC8C7932F1F/eng.ini",
+		"/iWork/商业项目/Minecraft/phar/SimpleAuthHelpSrc/plugin.yml",
+		"/Users/sky/Downloads/288-iProtector-09609/src/LDX/iProtector/Area.php",
+		"/Users/sky/Downloads/LevelDb2Avnil-master/a2r.sh",
+		"/Users/sky/Downloads/288-iProtector-09609/src/LDX/iProtector/Main.php",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/77DAD384-3A14-4F7A-B3AB-632AE814D63E/config.yml",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/4CC97646-FDBA-4952-9A7A-89503872951C/pocketmine.yml",
+		"/Users/sky/Library/Caches/Cleanup At Startup/Transmit/6D49579C-F4FA-4933-B837-CF46EBB49736/pocketmine.yml",
+		"/Library/WebServer/Documents/web/script.js",
+		"/Library/WebServer/Documents/web/style.css",
+		"/iWork/商业项目/EmojiKeyboard3/EmojiKeyboard3/iOS Keyboards Example/EmojiKeyboard3/Images.xcassets/AppIcon.appiconset/Contents.json",
+		"/iWork/商业项目/EmojiKeyboard3/fonts1.txt",
+		"/iWork/商业项目/EmojiKeyboard3/fonts.txt",
+		"/iWork/商业项目/EmojiKeyboard3/web/上载更新Getmore.command",
+		"/Library/WebServer/Documents/web/getmore.html",
+		"/temp/1.导出png/images/images/images/faces.json",
+		"/Users/sky/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/iWork/2048-Blue-Moon/savepush(未检查重复请求版本).js",
+		"/temp/keyboard/animated/Mood/emoji-2@2x.gif",
+		"/iWork/商业项目/EmojiKeyboard3/sets.txt",
+		"/var/folders/4z/ng1spq656_d49v2d71ysr3zr0000gn/T/sublime-sftp-browse-1406993355/api.itoytoy.com/root/savepush.js",
+		"/iWork/2048-Blue-Moon/合并时.wav",
+		"/iWork/2048-Blue-Moon/savepush.js",
+		"/temp/savepush.js",
+		"/temp/savepush1.js"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"/iWork/2048-Blue-Moon"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"DebuggerAppender",
+			"Console",
+			"RollingFile",
+			"getDamage",
+			"W_replace",
+			"YAML",
+			"dump_syms",
+			"please login by",
+			"pleaselogin",
+			"\n",
+			"ServerID",
+			"youtube",
+			"TAGCOUNT",
+			"toptags",
+			"\"type\": \"PE\"",
+			"ip",
+			"port",
+			"= ",
+			",",
+			":",
+			"\"",
+			"gameTimber",
+			"beta",
+			"reen",
+			"canTouch",
+			"contains",
+			"class",
+			"getDataFolder",
+			"saveAreas",
+			"onBlockPlace",
+			"Command must be used in-game",
+			"/Users/sky/Library/Developer/CoreSimulator/Devices/2FAFA049-0117-45C7-A83C-0C2338E4E845/data/Containers/Data/Application/5C05AC78-834B-457A-AE51-2B58EC5F6813/Documents/Keyboards/Emoji/",
+			"⃗",
+			"̥",
+			"͠",
+			"$$",
+			"&&",
+			"͟",
+			"͟͟",
+			"͞",
+			"͙",
+			"͎",
+			"̾",
+			"͓",
+			"̺",
+			"̸",
+			"̶",
+			"̫",
+			"̤",
+			"🅠🅦🅔🅡🅣🅨🅤🅘🅞🅟🅐🅢🅓🅕🅖🅗🅙🅚🅛🅩🅧🅒🅥🅑🅝🅜\n🇶🇼🇪🇷🇹🇾🇺🇮🇴🇵🇦🇸🇩🇫🇬🇭🇯🇰🇱🇿🇽🇨🇻🇧🇳🇲\nq͟w͟e͟r͟t͟y͟u͟i͟o͟p͟a͟s͟d͟f͟g͟h͟j͟k͟l͟z͟x͟c͟v͟b͟n͟m͟\nq̶w̶e̶r̶t̶y̶u̶i̶o̶p̶a̶s̶d̶f̶g̶h̶j̶k̶l̶z̶x̶c̶v̶b̶n̶m̶\nq͙w͙e͙r͙t͙y͙u͙i͙o͙p͙a͙s͙d͙f͙g͙h͙j͙k͙l͙z͙x͙c͙v͙b͙n͙m͙\nq͠w͠e͠r͠t͠y͠u͠i͠o͠p͠a͠s͠d͠f͠g͠h͠j͠k͠l͠z͠x͠c͠v͠b͠n͠m͠\nq̺w̺e̺r̺t̺y̺u̺i̺o̺p̺a̺s̺d̺f̺g̺h̺j̺k̺l̺z̺x̺c̺v̺b̺n̺m̺\nq⃗w⃗e⃗r⃗t⃗y⃗u⃗i⃗o⃗p⃗a⃗s⃗d⃗f⃗g⃗h⃗j⃗k⃗l⃗z⃗x⃗c⃗v⃗b⃗n⃗m⃗\nq͞w͞e͞r͞t͞y͞u͞i͞o͞p͞a͞s͞d͞f͞g͞h͞j͞k͞l͞z͞x͞c͞v͞b͞n͞m͞\nq͟͟w͟͟e͟͟r͟͟t͟͟y͟͟u͟͟i͟͟o͟͟p͟͟a͟͟s͟͟d͟͟f͟͟g͟͟h͟͟j͟͟k͟͟l͟͟z͟͟x͟͟c͟͟v͟͟b͟͟n͟͟m͟͟\nq̥ͦw̥ͦe̥ͦr̥ͦt̥ͦy̥ͦu̥ͦi̥ͦo̥ͦp̥ͦḁͦs̥ͦd̥ͦf̥ͦg̥ͦh̥ͦj̥ͦk̥ͦl̥ͦz̥ͦx̥ͦc̥ͦv̥ͦb̥ͦn̥ͦm̥ͦ\nq͓̽w͓̽e͓̽r͓̽t͓̽y͓̽u͓̽i͓̽o͓̽p͓̽a͓̽s͓̽d͓̽f͓̽g͓̽h͓̽j͓̽k͓̽l͓̽z͓̽x͓̽c͓̽v͓̽b͓̽n͓̽m͓̽\nq̤̈ẅ̤ë̤r̤̈ẗ̤ÿ̤ṳ̈ï̤ö̤p̤̈ä̤s̤̈d̤̈f̤̈g̤̈ḧ̤j̤̈k̤̈l̤̈z̤̈ẍ̤c̤̈v̤̈b̤̈n̤̈m̤̈\nq̫w̫e̫r̫t̫y̫u̫i̫o̫p̫a̫s̫d̫f̫g̫h̫j̫k̫l̫z̫x̫c̫v̫b̫n̫m̫\nq̾w̾e̾r̾t̾y̾u̾i̾o̾p̾a̾s̾d̾f̾g̾h̾j̾k̾l̾z̾x̾c̾v̾b̾n̾m̾\nq̺͆w̺͆e̺͆r̺͆t̺͆y̺͆u̺͆i̺͆o̺͆p̺͆a̺͆s̺͆d̺͆f̺͆g̺͆h̺͆j̺͆k̺͆l̺͆z̺͆x̺͆c̺͆v̺͆b̺͆n̺͆m̺͆\nq͎w͎e͎r͎t͎y͎u͎i͎o͎p͎a͎s͎d͎f͎g͎h͎j͎k͎l͎z͎x͎c͎v͎b͎n͎m͎\n⒬⒲⒠⒭⒯⒴⒰⒤⒪⒫⒜⒮⒟⒡⒢⒣⒥⒦⒧⒵⒳⒞⒱⒝⒩⒨\nǫᴡᴇʀᴛʏᴜɪᴏᴘᴀsᴅғɢʜᴊᴋʟᴢxᴄᴠʙɴᴍ\nQᏔᎬᎡᎢYᏌᏆᎾᏢᎪᏚᎠFᏩᎻᏓKᏞᏃXᏟᏙᏴNᎷ\nᑫᗯEᖇTYᑌIOᑭᗩᔕᗪᖴGᕼᒍKᒪᘔ᙭ᑕᐯᗷᑎᗰ\nq̸w̸e̸r̸t̸y̸u̸i̸o̸p̸a̸s̸d̸f̸g̸h̸j̸k̸l̸z̸x̸c̸v̸b̸n̸m̸\n",
+			" @",
+			"\"",
+			"left",
+			"footer_side",
+			"intro",
+			"steps_list_2",
+			"ol",
+			"steps_list_2",
+			" ",
+			"ketchapp",
+			" ",
+			"emoji",
+			" ",
+			"9873",
+			", ",
+			"-",
+			"]",
+			"[",
+			"set: ",
+			"savepush",
+			"handleError"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			",",
+			"=",
+			"",
+			"=",
+			"",
+			"⃗,",
+			"̥,",
+			"͠,",
+			"͟͟",
+			"͟,",
+			"$$,",
+			"͞,",
+			"͙,",
+			"͎,",
+			"̾,",
+			"͓,",
+			"̺,",
+			"̸,",
+			"̶,",
+			"̫,",
+			"̤,",
+			"",
+			",",
+			"_",
+			" = ",
+			"NSString * ",
+			"@\""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/MiNET/TestPlugin/NiceLobby/NiceLobbyPlugin.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 33779,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								630,
+								660
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"origin_encoding": "UTF-8 with BOM",
+							"syntax": "Packages/C#/C#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "",
+	"project": "MiNET.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
