@@ -25,6 +25,7 @@ using MiNET.Plugins.Attributes;
 using MiNET.Utils;
 using MiNET.Worlds;
 using TestPlugin.Annotations;
+using MiNET.ShootSound;
 
 namespace TestPlugin.NiceLobby
 {
@@ -137,6 +138,9 @@ namespace TestPlugin.NiceLobby
 						Seconds ++;
 						break;
 					}
+
+					ShootSound sound = new ShootSound();
+					BlockPartyLevelMakeSound(sound);
 						
 					ShowInfo(players,"Waitting for Game Start ...");
 					
