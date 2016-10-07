@@ -103,7 +103,7 @@ namespace TestPlugin.NiceLobby
 				{
 					if (player.IsFalling)
 					{
-						player.SpawnLevel(BlockPartyLevel);
+						// player.SpawnLevel(BlockPartyLevel);
 						// player.HealthManager.Kill();
 					}
 				}
