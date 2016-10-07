@@ -49,6 +49,8 @@ namespace TestPlugin.NiceLobby
 
 		private long _tick = 0;
 
+		Random rd = new Random();
+
 		protected override void OnEnable()
 		{
 			var server = Context.Server;
@@ -81,6 +83,8 @@ namespace TestPlugin.NiceLobby
 			ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Waitting Start...");
 
 			_GameTimer = new Timer(GameTick, null, 1000, 2000);
+
+			
 		}
 
         enum GameMoments
@@ -94,33 +98,27 @@ namespace TestPlugin.NiceLobby
         
         private void GameTick(object state)
 		{
-			// 
-
-			foreach (var level in Context.LevelManager.Levels)
+			var players = BlockPartyLevel.GetSpawnedPlayers();
+			foreach (var player in players)
 			{
-				var players = level.GetSpawnedPlayers();
-				foreach (var player in players)
+				if (player.IsFalling)
 				{
-					if (player.IsFalling)
-					{
-						// player.SpawnLevel(BlockPartyLevel);
-						// player.HealthManager.Kill();
+					// player.SpawnLevel(BlockPartyLevel);
+					// player.HealthManager.Kill();
 
-		
-						ThreadPool.QueueUserWorkItem(delegate(object ops)
+	
+					ThreadPool.QueueUserWorkItem(delegate(object ops)
+					{
+						player.Teleport(new PlayerLocation
 						{
-							
-							player.Teleport(new PlayerLocation
-							{
-								X = 56,
-								Y = 73,
-								Z = 0,
-								Yaw = 90,
-								Pitch = 20,
-								HeadYaw = 90
-							});
-						}, null);
-					}
+							X = 56,
+							Y = 73,
+							Z = 0,
+							Yaw = 90,
+							Pitch = 20,
+							HeadYaw = 90
+						});
+					}, null);
 				}
 			}
 			
@@ -223,6 +221,24 @@ namespace TestPlugin.NiceLobby
 		}
 
 
+		public void Tp2Map48(Player player)
+		{
+			BlockCoordinates center = new BlockCoordinates(Convert.ToInt32(42), Convert.ToInt32(67), Convert.ToInt32(-24));
+
+			ThreadPool.QueueUserWorkItem(delegate(object ops)
+			{
+				player.Teleport(new PlayerLocation
+				{
+					X = center.X - rd.Next()%48,
+					Y = -24,
+					Z = center.Z + 48 - rd.Next()%48 - 1,
+					Yaw = 90,
+					Pitch = 20,
+					HeadYaw = 90
+				});
+			}, null);		
+		}
+
         public void ChangeMap()
         {
         	int width = 48;
@@ -233,7 +249,7 @@ namespace TestPlugin.NiceLobby
 			// var ja = JArray.Parse(json);
 
 			// map48 = JArray.Parse(json);
-			Random rd = new Random();
+			
 
 			for (int x = 0; x < width; x++)
         	{
