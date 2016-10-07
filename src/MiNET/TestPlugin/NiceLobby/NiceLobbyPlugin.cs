@@ -127,7 +127,6 @@ namespace TestPlugin.NiceLobby
 			{
 				case GameMoments.Hub:
                     Log.Warn("大厅等待游戏开始...");
-					var players = BlockPartyLevel.GetSpawnedPlayers();
 					if (players.Length==0)
 					{
 						Seconds ++;
