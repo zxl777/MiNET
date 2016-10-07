@@ -140,7 +140,7 @@ namespace TestPlugin.NiceLobby
 						break;
 					}
 
-					ShootSound sound = new ShootSound(new BlockCoordinates(Convert.ToInt32(56), Convert.ToInt32(73), Convert.ToInt32(0)));
+					ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
 					BlockPartyLevelMakeSound(sound);
 						
 					ShowInfo(players,"Waitting for Game Start ...");
