@@ -201,7 +201,17 @@ namespace TestPlugin.NiceLobby
 			string json = System.IO.File.ReadAllText($"C:\\appveyor\\projects\\map\\mapjson\\{Jsonfile}");
 			// var ja = JArray.Parse(json);
 
-			map48 = JArray.Parse(json);
+			// map48 = JArray.Parse(json);
+			Random rd = new Random();
+
+			for (int x = 0; x < width; x++)
+        	{
+        		for (int y = 0; y < height; y++)
+        		{
+					map48[x][y]= rd.Next()%16; 
+				}
+			}
+
 
 			for (int x = 0; x < width; x++)
         	{
