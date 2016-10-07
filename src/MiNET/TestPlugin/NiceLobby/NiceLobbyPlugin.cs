@@ -120,6 +120,7 @@ namespace TestPlugin.NiceLobby
 						});
 					}, null);
 
+					ChangeMap();
 					When = GameMoments.Hub;
 					Seconds = 5;
 				}
