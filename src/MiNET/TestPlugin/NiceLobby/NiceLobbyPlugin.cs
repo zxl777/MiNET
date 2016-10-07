@@ -113,7 +113,7 @@ namespace TestPlugin.NiceLobby
 					if (Seconds==0) 
 					{
 						When = GameMoments.Moving;
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=====RED=====");					
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=====BLACK=====");					
 						Seconds = 5;
 						ChangeMap();
 					}	
@@ -131,19 +131,19 @@ namespace TestPlugin.NiceLobby
 					}
 					else if (Seconds == 4)
 					{
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"====RED====");
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"====BLACK====");
 					}
 					else if (Seconds == 3)
 					{
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"===RED===");
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"===BLACK===");
 					}
 					else if (Seconds == 2)
 					{
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"==RED==");
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"==BLACK==");
 					}
 					else if (Seconds == 1)
 					{
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=RED=");
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=BLACK=");
 					}
 
 
@@ -167,7 +167,7 @@ namespace TestPlugin.NiceLobby
 					if (Seconds==0) 
 					{
 						When = GameMoments.Moving;
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=====RED=====");
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=====BLACK=====");
 						Seconds = 5;
 					}	
 				break;				
