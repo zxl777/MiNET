@@ -106,16 +106,18 @@ namespace TestPlugin.NiceLobby
 						// player.SpawnLevel(BlockPartyLevel);
 						// player.HealthManager.Kill();
 
+		
 						ThreadPool.QueueUserWorkItem(delegate(object state)
 						{
+							
 							player.Teleport(new PlayerLocation
 							{
-								X = 55.6,
+								X = 56,
 								Y = 73,
-								Z = 0.4,
-								Yaw = 89.6,
+								Z = 0,
+								Yaw = 90,
 								Pitch = 20,
-								HeadYaw = 89.6
+								HeadYaw = 90
 							});
 						}, null);
 					}
