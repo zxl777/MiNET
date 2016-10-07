@@ -39,7 +39,7 @@ namespace TestPlugin.NiceLobby
         Level BlockPartyLevel;
 		string Jsonfile = "0.json";
 
-		int [][] map48=new int [48][48];
+		int [,] map48=new int [48,48];
 
 		[UsedImplicitly] private Timer _popupTimer;
 		[UsedImplicitly] private Timer _GameTimer;
@@ -208,7 +208,7 @@ namespace TestPlugin.NiceLobby
         	{
         		for (int y = 0; y < height; y++)
         		{
-					map48[x][y]= rd.Next()%16; 
+					map48[x,y]= rd.Next()%16; 
 				}
 			}
 
@@ -223,7 +223,7 @@ namespace TestPlugin.NiceLobby
         			{
                              //Coordinates = coor, Metadata = 15
                              Coordinates = coor,
-                             Metadata = (Byte)map48[x][y]
+                             Metadata = (Byte)map48[x,y]
                          };
 
         			BlockPartyLevel.SetBlock(colorBlock, true);
