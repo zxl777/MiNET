@@ -141,7 +141,7 @@ namespace TestPlugin.NiceLobby
 					}
 
 					ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
-					BlockPartyLevelMakeSound(sound);
+					BlockPartyLevel.MakeSound(sound);
 						
 					ShowInfo(players,"Waitting for Game Start ...");
 					
