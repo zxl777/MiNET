@@ -107,7 +107,7 @@ namespace TestPlugin.NiceLobby
 						// player.HealthManager.Kill();
 
 		
-						ThreadPool.QueueUserWorkItem(delegate(object state)
+						ThreadPool.QueueUserWorkItem(delegate(object ops)
 						{
 							
 							player.Teleport(new PlayerLocation
