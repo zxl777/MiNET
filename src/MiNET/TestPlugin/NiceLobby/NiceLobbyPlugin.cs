@@ -117,7 +117,7 @@ namespace TestPlugin.NiceLobby
 
 			// inventory.Slots[c++] = new ItemAir();
 
-		private void SetHotBar(Player player,int blockid,int num)
+		private void SetHotBar(Player player,short blockid,int num)
 		{
 			var inventory = player.Inventory;
 
