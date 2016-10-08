@@ -223,7 +223,7 @@ namespace TestPlugin.NiceLobby
 				}
 			}
 
-			if (GamingPlayers.Count()<1)
+			if (GamingPlayers.Count()<1 && When!= GameMoments.Hub)
 			{
 				When =GameMoments.Hub;
 				Seconds = 10;
@@ -235,14 +235,14 @@ namespace TestPlugin.NiceLobby
 			{
 				case GameMoments.Hub:
                     Log.Warn("大厅等待游戏开始...");
-					if (players.Length==0)
+					if (WaitingPlayers.Count()==0)
 					{
 						Seconds ++;
 						break;
 					}
 
-					ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
-					BlockPartyLevel.MakeSound(sound);
+					// ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
+					// BlockPartyLevel.MakeSound(sound);
 
 					ShowInfo(WaitingPlayers,"Waitting for Game Start ...");
 					
