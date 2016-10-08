@@ -214,7 +214,7 @@ namespace TestPlugin.NiceLobby
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			
-			var toRemove = new HashSet<T>();
+			var toRemove = new HashSet<Player>();
 
 			foreach (var player in GamingPlayers)
 			{
