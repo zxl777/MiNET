@@ -84,7 +84,7 @@ namespace TestPlugin.NiceLobby
 
 			When =GameMoments.Hub;
 			Seconds = 10;
-			ShowInfo(WaitingPlayers.ToArray(),"Waiting Start...");
+			ShowInfo(WaitingPlayers,"Waiting Start...");
 
 			_GameTimer = new Timer(GameTick, null, 1000, 2000);
 
@@ -327,6 +327,11 @@ namespace TestPlugin.NiceLobby
 
 		}
 
+
+		public void ShowInfo(List <Player>players,string message)
+		{
+			ShowInfo(players.ToArray());
+		}
 
 		public void ShowInfo(Player[] players,string message)
 		{
