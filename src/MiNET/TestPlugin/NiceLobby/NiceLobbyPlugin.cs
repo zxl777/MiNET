@@ -43,6 +43,8 @@ namespace TestPlugin.NiceLobby
 
 		int [,] map48=new int [48,48];
 
+		List<Player> GamingPlayers = new List<Player>();
+		List<Player> WaitingPlayers = new List<Player>();
 
 		[UsedImplicitly] private Timer _popupTimer;
 		[UsedImplicitly] private Timer _GameTimer;
@@ -82,7 +84,7 @@ namespace TestPlugin.NiceLobby
 
 			When =GameMoments.Hub;
 			Seconds = 10;
-			ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Waiting Start...");
+			ShowInfo(WaitingPlayers,"Waiting Start...");
 
 			_GameTimer = new Timer(GameTick, null, 1000, 2000);
 
@@ -130,8 +132,8 @@ namespace TestPlugin.NiceLobby
 					inventory.Slots[c++] = new ItemAir();
 					inventory.Slots[c++] = new ItemAir();
 					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					// inventory.Slots[c++] = new ItemBlock(new Block(95), 0) {Count = 1};
+					// inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(102), 0) {Count = 1};
 					inventory.Slots[c++] = new ItemAir();
 					inventory.Slots[c++] = new ItemAir();
 					inventory.Slots[c++] = new ItemAir();
@@ -211,22 +213,21 @@ namespace TestPlugin.NiceLobby
 			BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
-			foreach (var player in players)
+			foreach (var player in GamingPlayers)
 			{
-				// if (player.IsFalling)
-				// SetHotBar(player,15,Seconds%5);
 				if (player.KnownPosition.Y<50)
 				{
-					// player.SpawnLevel(BlockPartyLevel);
-					// player.HealthManager.Kill();
-
 					Tp2Restart(player);
-					
-
-					// ChangeMap();
-					// When = GameMoments.Hub;
-					// Seconds = 5;
+					GamingPlayers.Remove(player);
+					WaitingPlayers.Add(player);
 				}
+			}
+
+			if (GamingPlayers.Count()<1)
+			{
+				When =GameMoments.Hub;
+				Seconds = 10;
+				ShowInfo(WaitingPlayers,"Waiting Start...");
 			}
 			
 			Seconds --;
@@ -243,19 +244,21 @@ namespace TestPlugin.NiceLobby
 					ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
 					BlockPartyLevel.MakeSound(sound);
 
-					ShowInfo(players,"Waitting for Game Start ...");
+					ShowInfo(WaitingPlayers,"Waitting for Game Start ...");
 					
 					if (Seconds==0) 
 					{
 						When = GameMoments.Prepare;
 						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Ready ...");
 						Seconds = 1;
-
 						
-						foreach (var player in players)
-						{
+						foreach (var player in WaitingPlayers)
+						{	
 							Tp2Map48(player);
+							GamingPlayers.Add(player);
 						}
+
+						WaitingPlayers.Clear();
 					}	
 				break;
 
@@ -265,7 +268,7 @@ namespace TestPlugin.NiceLobby
 					if (Seconds==0) 
 					{
 						When = GameMoments.Moving;
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=====BLACK=====");					
+						ShowInfo(GamingPlayers,"BLACK");					
 						Seconds = 5;
 						ChangeMap();
 					}	
@@ -274,17 +277,17 @@ namespace TestPlugin.NiceLobby
 				case GameMoments.Moving:
                     Log.Warn("移动，找到正确方块...");
 					
-					foreach (var player in players)
+					foreach (var player in GamingPlayers)
 					{
 						SetHotBar(player,15,Seconds%5);
 					}
-					ShowInfo(players,"BLACK");
+					ShowInfo(GamingPlayers,"BLACK");
 
 
 					if (Seconds==0) 
 					{
 						When = GameMoments.Stop;
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Stop!");
+						ShowInfo(GamingPlayers,"Stop!");
 						Seconds = 2;
 						DigMap();
 					}
@@ -299,7 +302,7 @@ namespace TestPlugin.NiceLobby
 					if (Seconds==0) 
 					{
 						When = GameMoments.Waitting;
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Waiting...");
+						ShowInfo(GamingPlayers,"Waiting...");
 						Seconds = 1;
 						ChangeMap();
 					}	
@@ -311,7 +314,7 @@ namespace TestPlugin.NiceLobby
 					if (Seconds==0) 
 					{
 						When = GameMoments.Moving;
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"BLACK");
+						ShowInfo(GamingPlayers,"BLACK");
 						foreach (var player in players)
 						{
 							SetHotBar(player,15,4);
@@ -454,6 +457,9 @@ namespace TestPlugin.NiceLobby
 			if (player == null) throw new ArgumentNullException(nameof(eventArgs.Player));
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Red}-{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
+
+			WaitingPlayers.Remove(player);
+			GamingPlayers.Remove(player);
 		}
 
 		private void OnPlayerJoin(object o, PlayerEventArgs eventArgs)
@@ -469,6 +475,7 @@ namespace TestPlugin.NiceLobby
 			player.SpawnLevel(BlockPartyLevel);
 
 			Tp2Restart(player);
+			WaitingPlayers.Add(player);
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Green}+{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
 		}
