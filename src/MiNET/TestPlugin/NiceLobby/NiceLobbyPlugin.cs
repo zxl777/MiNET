@@ -219,7 +219,7 @@ namespace TestPlugin.NiceLobby
 				if (player.KnownPosition.Y<60)
 				{
 					Tp2Restart(player);
-					// GamingPlayers.Remove(player);
+					GamingPlayers.Remove(player);
 					// WaitingPlayers.Add(player);
 				}
 			}
