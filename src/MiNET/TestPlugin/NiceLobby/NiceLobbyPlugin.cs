@@ -330,7 +330,7 @@ namespace TestPlugin.NiceLobby
 
 		public void ShowInfo(List <Player>players,string message)
 		{
-			ShowInfo(players.ToArray());
+			ShowInfo(players.ToArray(),message);
 		}
 
 		public void ShowInfo(Player[] players,string message)
