@@ -119,19 +119,15 @@ namespace TestPlugin.NiceLobby
 			var inventory = player.Inventory;
 			byte c = 0;
 
-
+			inventory.Slots[c++] = new ItemAir();
+			inventory.Slots[c++] = new ItemAir();
+			inventory.Slots[c++] = new ItemAir();
+			inventory.Slots[c++] = new ItemAir();
 			inventory.Slots[c++] = new ItemBlock(new Block(159), 15) {Count = 1};
-
-			inventory.Slots[c++] = new ItemCompass(); // Wooden Sword
-			inventory.Slots[c++] = new ItemWoodenSword(); // Wooden Sword
-			inventory.Slots[c++] = new ItemStoneSword(); // Stone Sword
-			inventory.Slots[c++] = new ItemGoldSword(); // Golden Sword
-			inventory.Slots[c++] = new ItemIronSword(); // Iron Sword
-			inventory.Slots[c++] = new ItemDiamondSword(); // Diamond Sword
-			inventory.Slots[c++] = new ItemBow(); // Bow
-			inventory.Slots[c++] = new ItemArrow {Count = 64}; // Arrows
-			inventory.Slots[c++] = new ItemEgg {Count = 64}; // Eggs
-
+			inventory.Slots[c++] = new ItemAir();
+			inventory.Slots[c++] = new ItemAir();
+			inventory.Slots[c++] = new ItemAir();
+			inventory.Slots[c++] = new ItemAir();
 			player.SendPlayerInventory();
 			// SendEquipmentForPlayer(player);
 			// SendArmorForPlayer(player);
