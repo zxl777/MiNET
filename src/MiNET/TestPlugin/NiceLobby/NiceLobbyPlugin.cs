@@ -213,13 +213,14 @@ namespace TestPlugin.NiceLobby
 			BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
+			
 			foreach (var player in GamingPlayers)
 			{
 				if (player.KnownPosition.Y<60)
 				{
 					Tp2Restart(player);
-					GamingPlayers.Remove(player);
-					WaitingPlayers.Add(player);
+					// GamingPlayers.Remove(player);
+					// WaitingPlayers.Add(player);
 				}
 			}
 
