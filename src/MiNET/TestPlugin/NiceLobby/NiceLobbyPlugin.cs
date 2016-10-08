@@ -119,6 +119,9 @@ namespace TestPlugin.NiceLobby
 			var inventory = player.Inventory;
 			byte c = 0;
 
+
+			inventory.Slots[c++] = new ItemBlock(new Block(159), 15) {Count = 1};
+
 			inventory.Slots[c++] = new ItemCompass(); // Wooden Sword
 			inventory.Slots[c++] = new ItemWoodenSword(); // Wooden Sword
 			inventory.Slots[c++] = new ItemStoneSword(); // Stone Sword
