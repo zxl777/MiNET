@@ -82,7 +82,7 @@ namespace TestPlugin.NiceLobby
 
 			When =GameMoments.Hub;
 			Seconds = 10;
-			ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Waitting Start...");
+			ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Waiting Start...");
 
 			_GameTimer = new Timer(GameTick, null, 1000, 2000);
 
@@ -98,19 +98,9 @@ namespace TestPlugin.NiceLobby
             Stop
         }
         
-        private void GameTick(object state)
+		private void Tp2Restart()
 		{
-			var players = BlockPartyLevel.GetSpawnedPlayers();
-			foreach (var player in players)
-			{
-				// if (player.IsFalling)
-				if (player.KnownPosition.Y<50)
-				{
-					// player.SpawnLevel(BlockPartyLevel);
-					// player.HealthManager.Kill();
-
-	
-					ThreadPool.QueueUserWorkItem(delegate(object ops)
+			ThreadPool.QueueUserWorkItem(delegate(object ops)
 					{
 						player.Teleport(new PlayerLocation
 						{
@@ -122,10 +112,26 @@ namespace TestPlugin.NiceLobby
 							HeadYaw = 90
 						});
 					}, null);
+		}
+	
 
-					ChangeMap();
-					When = GameMoments.Hub;
-					Seconds = 5;
+        private void GameTick(object state)
+		{
+			var players = BlockPartyLevel.GetSpawnedPlayers();
+			foreach (var player in players)
+			{
+				// if (player.IsFalling)
+				if (player.KnownPosition.Y<50)
+				{
+					// player.SpawnLevel(BlockPartyLevel);
+					// player.HealthManager.Kill();
+
+					Tp2Restart();
+					
+
+					// ChangeMap();
+					// When = GameMoments.Hub;
+					// Seconds = 5;
 				}
 			}
 			
@@ -371,6 +377,8 @@ namespace TestPlugin.NiceLobby
 			// NewWorld(player);
 			Log.Warn(BlockPartyLevel.LevelId);
 			player.SpawnLevel(BlockPartyLevel);
+
+			Tp2Restart();
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Green}+{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
 		}
