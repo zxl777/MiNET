@@ -944,7 +944,8 @@ namespace TestPlugin.NiceLobby
 				level.Initialize();
 				Context.LevelManager.Levels.Add(level);
 			}
-            level.SpawnPoint = new PlayerLocation(Convert.ToInt32(-6), Convert.ToInt32(68), Convert.ToInt32(-23));
+
+            level.SpawnPoint = new PlayerLocation(Convert.ToInt32(56), Convert.ToInt32(73), Convert.ToInt32(0));
             player.SpawnLevel(level);
 
 			BlockPartyLevel = level;
