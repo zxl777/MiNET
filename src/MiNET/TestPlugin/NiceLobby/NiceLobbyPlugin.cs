@@ -215,7 +215,7 @@ namespace TestPlugin.NiceLobby
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			foreach (var player in GamingPlayers)
 			{
-				if (player.KnownPosition.Y<30)
+				if (player.KnownPosition.Y<60)
 				{
 					Tp2Restart(player);
 					GamingPlayers.Remove(player);
@@ -227,7 +227,7 @@ namespace TestPlugin.NiceLobby
 			{
 				When =GameMoments.Hub;
 				Seconds = 10;
-				ShowInfo(WaitingPlayers,"Waiting Start..."); 
+				ShowInfo(WaitingPlayers,"Waiting Start...");  
 			}
 			
 			Seconds --;
@@ -330,6 +330,7 @@ namespace TestPlugin.NiceLobby
 
 		public void ShowInfo(List <Player>players,string message)
 		{
+			if (players.Count()==0) return;
 			ShowInfo(players.ToArray(),message);
 		}
 
