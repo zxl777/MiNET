@@ -378,6 +378,8 @@ namespace TestPlugin.NiceLobby
 			Log.Warn(BlockPartyLevel.LevelId);
 			player.SpawnLevel(BlockPartyLevel);
 
+			Tp2Restart(player);
+
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Green}+{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
 		}
 
