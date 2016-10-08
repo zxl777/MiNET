@@ -114,6 +114,25 @@ namespace TestPlugin.NiceLobby
 					}, null);
 		}
 	
+		private void SetHotBar(Player player)
+		{
+			var inventory = player.Inventory;
+			byte c = 0;
+
+			inventory.Slots[c++] = new ItemCompass(); // Wooden Sword
+			inventory.Slots[c++] = new ItemWoodenSword(); // Wooden Sword
+			inventory.Slots[c++] = new ItemStoneSword(); // Stone Sword
+			inventory.Slots[c++] = new ItemGoldSword(); // Golden Sword
+			inventory.Slots[c++] = new ItemIronSword(); // Iron Sword
+			inventory.Slots[c++] = new ItemDiamondSword(); // Diamond Sword
+			inventory.Slots[c++] = new ItemBow(); // Bow
+			inventory.Slots[c++] = new ItemArrow {Count = 64}; // Arrows
+			inventory.Slots[c++] = new ItemEgg {Count = 64}; // Eggs
+
+			player.SendPlayerInventory();
+			// SendEquipmentForPlayer(player);
+			// SendArmorForPlayer(player);
+		}
 
         private void GameTick(object state)
 		{
@@ -121,6 +140,7 @@ namespace TestPlugin.NiceLobby
 			foreach (var player in players)
 			{
 				// if (player.IsFalling)
+				SetHotBar(player);
 				if (player.KnownPosition.Y<50)
 				{
 					// player.SpawnLevel(BlockPartyLevel);
