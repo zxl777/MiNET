@@ -130,7 +130,8 @@ namespace TestPlugin.NiceLobby
 					inventory.Slots[c++] = new ItemAir();
 					inventory.Slots[c++] = new ItemAir();
 					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemBlock(new Block(95), 0) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+					// inventory.Slots[c++] = new ItemBlock(new Block(95), 0) {Count = 1};
 					inventory.Slots[c++] = new ItemAir();
 					inventory.Slots[c++] = new ItemAir();
 					inventory.Slots[c++] = new ItemAir();
@@ -207,6 +208,8 @@ namespace TestPlugin.NiceLobby
 
         private void GameTick(object state)
 		{
+			BlockPartyLevel.BroadcastMessage($"When {When} Seconds {Seconds} ", type: MessageType.Raw);
+
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			foreach (var player in players)
 			{
