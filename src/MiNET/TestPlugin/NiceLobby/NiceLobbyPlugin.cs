@@ -98,7 +98,7 @@ namespace TestPlugin.NiceLobby
             Stop
         }
         
-		private void Tp2Restart()
+		private void Tp2Restart(Player player)
 		{
 			ThreadPool.QueueUserWorkItem(delegate(object ops)
 					{
@@ -126,7 +126,7 @@ namespace TestPlugin.NiceLobby
 					// player.SpawnLevel(BlockPartyLevel);
 					// player.HealthManager.Kill();
 
-					Tp2Restart();
+					Tp2Restart(player);
 					
 
 					// ChangeMap();
@@ -148,7 +148,7 @@ namespace TestPlugin.NiceLobby
 
 					ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
 					BlockPartyLevel.MakeSound(sound);
-						
+
 					ShowInfo(players,"Waitting for Game Start ...");
 					
 					if (Seconds==0) 
@@ -377,6 +377,8 @@ namespace TestPlugin.NiceLobby
 			// NewWorld(player);
 			Log.Warn(BlockPartyLevel.LevelId);
 			player.SpawnLevel(BlockPartyLevel);
+
+			Tp2Restart();
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Green}+{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
 		}
@@ -944,9 +946,7 @@ namespace TestPlugin.NiceLobby
 				level.Initialize();
 				Context.LevelManager.Levels.Add(level);
 			}
-
-
-            level.SpawnPoint = new PlayerLocation(Convert.ToInt32(56), Convert.ToInt32(73), Convert.ToInt32(0));
+            level.SpawnPoint = new PlayerLocation(Convert.ToInt32(-6), Convert.ToInt32(68), Convert.ToInt32(-23));
             player.SpawnLevel(level);
 
 			BlockPartyLevel = level;
