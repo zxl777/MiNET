@@ -208,13 +208,13 @@ namespace TestPlugin.NiceLobby
 
         private void GameTick(object state)
 		{
-			BlockPartyLevel.BroadcastMessage($"When {When} Seconds {Seconds} ", type: MessageType.Raw);
+			BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			foreach (var player in players)
 			{
 				// if (player.IsFalling)
-				SetHotBar(player,15,Seconds%5);
+				// SetHotBar(player,15,Seconds%5);
 				if (player.KnownPosition.Y<50)
 				{
 					// player.SpawnLevel(BlockPartyLevel);
@@ -274,6 +274,13 @@ namespace TestPlugin.NiceLobby
 				case GameMoments.Moving:
                     Log.Warn("移动，找到正确方块...");
 					
+					foreach (var player in players)
+					{
+						SetHotBar(player,15,Seconds%5);
+					}
+					ShowInfo(players,"BLACK");
+
+
 					if (Seconds==0) 
 					{
 						When = GameMoments.Stop;
@@ -281,22 +288,7 @@ namespace TestPlugin.NiceLobby
 						Seconds = 2;
 						DigMap();
 					}
-					else if (Seconds == 4)
-					{
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"====BLACK====");
-					}
-					else if (Seconds == 3)
-					{
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"===BLACK===");
-					}
-					else if (Seconds == 2)
-					{
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"==BLACK==");
-					}
-					else if (Seconds == 1)
-					{
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=BLACK=");
-					}
+
 
 
 				break;
@@ -315,11 +307,15 @@ namespace TestPlugin.NiceLobby
 
 				case GameMoments.Waitting:
                     Log.Warn("等待...");
-					
+
 					if (Seconds==0) 
 					{
 						When = GameMoments.Moving;
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"=====BLACK=====");
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"BLACK");
+						foreach (var player in players)
+						{
+							SetHotBar(player,15,4);
+						}
 						Seconds = 5;
 					}	
 				break;				
