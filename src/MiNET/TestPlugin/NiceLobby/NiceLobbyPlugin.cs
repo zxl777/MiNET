@@ -113,27 +113,96 @@ namespace TestPlugin.NiceLobby
 						});
 					}, null);
 		}
-	
-		private void SetHotBar(Player player)
+
+
+			// inventory.Slots[c++] = new ItemAir();
+
+		private void SetHotBar(Player player,int blockid,int num)
 		{
 			var inventory = player.Inventory;
-			byte c = 0;
 
-			inventory.Slots[c++] = new ItemAir();
-			inventory.Slots[c++] = new ItemAir();
+			switch (num)
+			{
+				case 0:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
 
-			inventory.Slots[c++] = new ItemBlock(new Block(35), 5) {Count = 1};
-			inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
-			inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
-			inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-			inventory.Slots[c++] = new ItemBlock(new Block(159), 15) {Count = 1};
-			inventory.Slots[c++] = new ItemAir();
-			inventory.Slots[c++] = new ItemAir();
-			inventory.Slots[c++] = new ItemAir();
-			inventory.Slots[c++] = new ItemAir();
+					break;
+				}
+				case 1:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+
+					break;
+				}
+				case 2:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+
+					break;
+				}
+				
+				case 3:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+
+					break;
+				}
+				
+				case 4:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 5) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 5) {Count = 1};
+
+					break;
+				}
+			}
+
 			player.SendPlayerInventory();
-			// SendEquipmentForPlayer(player);
-			// SendArmorForPlayer(player);
 		}
 
         private void GameTick(object state)
@@ -142,7 +211,7 @@ namespace TestPlugin.NiceLobby
 			foreach (var player in players)
 			{
 				// if (player.IsFalling)
-				SetHotBar(player);
+				SetHotBar(player,15,Seconds%5);
 				if (player.KnownPosition.Y<50)
 				{
 					// player.SpawnLevel(BlockPartyLevel);
