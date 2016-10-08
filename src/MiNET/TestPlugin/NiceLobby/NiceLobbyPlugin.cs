@@ -121,8 +121,8 @@ namespace TestPlugin.NiceLobby
 
 			inventory.Slots[c++] = new ItemAir();
 			inventory.Slots[c++] = new ItemAir();
-			inventory.Slots[c++] = new ItemAir();
-			inventory.Slots[c++] = new ItemAir();
+			inventory.Slots[c++] = new ItemBlock(new Block(35), 2) {Count = 1};
+			inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
 			inventory.Slots[c++] = new ItemBlock(new Block(159), 15) {Count = 1};
 			inventory.Slots[c++] = new ItemAir();
 			inventory.Slots[c++] = new ItemAir();
