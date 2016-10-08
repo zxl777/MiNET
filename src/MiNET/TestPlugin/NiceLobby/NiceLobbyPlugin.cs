@@ -214,15 +214,20 @@ namespace TestPlugin.NiceLobby
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			
+			var toRemove = new HashSet<T>();
+
 			foreach (var player in GamingPlayers)
 			{
 				if (player.KnownPosition.Y<60)
 				{
 					Tp2Restart(player);
-					GamingPlayers.Remove(player);
-					// WaitingPlayers.Add(player);
+					toRemove.Add(player);
+					// GamingPlayers.Remove(player);
+					WaitingPlayers.Add(player);
 				}
 			}
+
+			GamingPlayers.RemoveAll(toRemove.Contains);
 
 			if (GamingPlayers.Count()<1 && When!= GameMoments.Hub)
 			{
