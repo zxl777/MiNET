@@ -84,7 +84,7 @@ namespace TestPlugin.NiceLobby
 
 			When =GameMoments.Hub;
 			Seconds = 10;
-			ShowInfo(WaitingPlayers,"Waiting Start...");
+			ShowInfo(WaitingPlayers.ToArray(),"Waiting Start...");
 
 			_GameTimer = new Timer(GameTick, null, 1000, 2000);
 
