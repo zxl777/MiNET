@@ -215,8 +215,7 @@ namespace TestPlugin.NiceLobby
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			
 			var toRemove = new HashSet<Player>();
-
-			foreach (var player in GamingPlayers)
+			foreach (var player in GamingPlayers) //判断跌落
 			{
 				if (player.KnownPosition.Y<60)
 				{
@@ -226,14 +225,14 @@ namespace TestPlugin.NiceLobby
 					WaitingPlayers.Add(player);
 				}
 			}
-
 			GamingPlayers.RemoveAll(toRemove.Contains);
 
-			if (GamingPlayers.Count()<1 && When!= GameMoments.Hub)
+			if (GamingPlayers.Count()<1 && When!= GameMoments.Hub) //GameOver
 			{
 				When =GameMoments.Hub;
 				Seconds = 10;
 				ShowInfo(WaitingPlayers,"Waiting Start...");  
+				//TODO:报告战况，获得多少积分等等
 			}
 			
 			Seconds --;
@@ -241,7 +240,7 @@ namespace TestPlugin.NiceLobby
 			{
 				case GameMoments.Hub:
                     Log.Warn("大厅等待游戏开始...");
-					if (WaitingPlayers.Count()==0)
+					if (WaitingPlayers.Count()==0) //没有玩家时，游戏不启动
 					{
 						Seconds ++;
 						break;
@@ -250,9 +249,9 @@ namespace TestPlugin.NiceLobby
 					// ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
 					// BlockPartyLevel.MakeSound(sound);
 
-					ShowInfo(WaitingPlayers,"Waitting for Game Start ...");
+					ShowInfo(WaitingPlayers,$"Waiting for Game Start {Seconds}...");
 					
-					if (Seconds==0) 
+					if (Seconds==0||WaitingPlayers.Count()>5) 
 					{
 						When = GameMoments.Prepare;
 						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Ready ...");
