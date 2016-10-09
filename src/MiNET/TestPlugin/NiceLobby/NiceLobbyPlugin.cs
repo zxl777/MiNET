@@ -63,8 +63,8 @@ namespace TestPlugin.NiceLobby
             server.LevelManager.LevelCreated += (sender, args) =>
 			{
 				Level level = args.Level;
-				//level.AllowBuild = false;
-				//level.AllowBreak = false;
+				level.AllowBuild = false;
+				level.AllowBreak = false;
 
 				level.BlockBreak += LevelOnBlockBreak;
 				level.BlockPlace += LevelOnBlockPlace;
@@ -84,7 +84,7 @@ namespace TestPlugin.NiceLobby
 
 			When =GameMoments.Hub;
 			Seconds = 10;
-			ShowInfo(WaitingPlayers,"Waiting Start...");
+			ShowInfo(WaitingPlayers,"等待游戏开始...");
 
 			_GameTimer = new Timer(GameTick, null, 1000, 2000);
 
@@ -262,12 +262,12 @@ namespace TestPlugin.NiceLobby
 					// ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
 					// BlockPartyLevel.MakeSound(sound);
 
-					ShowInfo(WaitingPlayers,$"Waiting for Game Start {Seconds}...");
+					ShowInfo(WaitingPlayers,$"等待游戏开始 {Seconds}...");
 					
 					if (Seconds==0||WaitingPlayers.Count()>5) 
 					{
 						When = GameMoments.Prepare;
-						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"Ready ...");
+						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"准备 ...");
 						Seconds = 1;
 						
 						foreach (var player in WaitingPlayers)
@@ -286,7 +286,12 @@ namespace TestPlugin.NiceLobby
 					if (Seconds==0) 
 					{
 						When = GameMoments.Moving;
-						ShowInfo(GamingPlayers,"BLACK");					
+						foreach (var player in GamingPlayers)
+						{
+							SetHotBar(player,15,4);
+						}
+
+						ShowInfo(GamingPlayers,"黑色");					
 						Seconds = 5;
 						ChangeMap();
 					}	
@@ -299,13 +304,13 @@ namespace TestPlugin.NiceLobby
 					{
 						SetHotBar(player,15,Seconds%5);
 					}
-					ShowInfo(GamingPlayers,"BLACK");
+					ShowInfo(GamingPlayers,"黑色");
 
 
 					if (Seconds==0) 
 					{
 						When = GameMoments.Stop;
-						ShowInfo(GamingPlayers,"Stop!");
+						ShowInfo(GamingPlayers,"停!");
 						Seconds = 2;
 						DigMap();
 					}
@@ -320,7 +325,7 @@ namespace TestPlugin.NiceLobby
 					if (Seconds==0) 
 					{
 						When = GameMoments.Waitting;
-						ShowInfo(GamingPlayers,"Waiting...");
+						ShowInfo(GamingPlayers,"等一等...");
 						Seconds = 1;
 						ChangeMap();
 					}	
@@ -332,7 +337,7 @@ namespace TestPlugin.NiceLobby
 					if (Seconds==0) 
 					{
 						When = GameMoments.Moving;
-						ShowInfo(GamingPlayers,"BLACK");
+						ShowInfo(GamingPlayers,"黑色");
 						foreach (var player in players)
 						{
 							SetHotBar(player,15,4);
@@ -340,9 +345,7 @@ namespace TestPlugin.NiceLobby
 						Seconds = 5;
 					}	
 				break;				
-				
 			}
-
 		}
 
 
@@ -351,6 +354,7 @@ namespace TestPlugin.NiceLobby
 			if (players.Count()==0) return;
 			ShowInfo(players.ToArray(),message);
 		}
+
 
 		public void ShowInfo(Player[] players,string message)
 		{

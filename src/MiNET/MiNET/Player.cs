@@ -1090,7 +1090,7 @@ namespace MiNET
 
 		private object _inventorySync = new object();
 
-		public void OpenInventory(BlockCoordinates inventoryCoord)
+		public void OpenInventory(BlockCoordinates inventoryCoord) 
 		{
 			lock (_inventorySync)
 			{
