@@ -210,7 +210,7 @@ namespace TestPlugin.NiceLobby
 
         private void GameTick(object state)
 		{
-			// BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);
+			// BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);			
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			
@@ -225,8 +225,15 @@ namespace TestPlugin.NiceLobby
 					WaitingPlayers.Add(player);
 					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!", type: MessageType.Raw);
 				}
+
+				BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
 			}
 			GamingPlayers.RemoveAll(toRemove.Contains);
+
+			foreach (var player in WaitingPlayers) //判断跌落
+			{
+				BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
+			}
 
 			if (GamingPlayers.Count()<1 && When!= GameMoments.Hub) //GameOver
 			{
@@ -514,7 +521,7 @@ namespace TestPlugin.NiceLobby
 			{
 				e.Cancel = e.Player.GameMode != GameMode.Creative;
 			}
-			e.Cancel = true;
+			// e.Cancel = true;
 		}
 
 		private void LevelOnBlockPlace(object sender, BlockPlaceEventArgs e)
@@ -524,7 +531,7 @@ namespace TestPlugin.NiceLobby
 				e.Cancel = e.Player.GameMode != GameMode.Creative;
 			}
 
-			e.Cancel = true;
+			// e.Cancel = true;
 		}
 
 		private float m = 0.1f;
