@@ -238,7 +238,7 @@ namespace TestPlugin.NiceLobby
 					Player Winner = GamingPlayers[0];
 					BlockPartyLevel.BroadcastMessage($"{Winner.Username} 赢了本场比赛!", type: MessageType.Raw);
 					WaitingPlayers.Add(Winner);
-					GamingPlayers.RemoveAll();	
+					GamingPlayers.Clear();	
 				}
 				else
 					BlockPartyLevel.BroadcastMessage($"本场比赛没有赢家!", type: MessageType.Raw);
