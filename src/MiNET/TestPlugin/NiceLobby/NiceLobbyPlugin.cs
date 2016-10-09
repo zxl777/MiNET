@@ -210,7 +210,7 @@ namespace TestPlugin.NiceLobby
 
         private void GameTick(object state)
 		{
-			BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);
+			// BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			
@@ -223,6 +223,7 @@ namespace TestPlugin.NiceLobby
 					toRemove.Add(player);
 					// GamingPlayers.Remove(player);
 					WaitingPlayers.Add(player);
+					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!", type: MessageType.Raw);
 				}
 			}
 			GamingPlayers.RemoveAll(toRemove.Contains);
@@ -231,7 +232,19 @@ namespace TestPlugin.NiceLobby
 			{
 				When =GameMoments.Hub;
 				Seconds = 10;
-				ShowInfo(WaitingPlayers,"Waiting Start...");  
+				ChangeMap();
+				if (GamingPlayers.Count()==1)
+				{
+					Player Winner = GamingPlayers[0];
+					BlockPartyLevel.BroadcastMessage($"{Winner.Username} 赢了本场比赛!", type: MessageType.Raw);
+					WaitingPlayers.Add(Winner);
+					GamingPlayers.RemoveAll();	
+				}
+				else
+					BlockPartyLevel.BroadcastMessage($"本场比赛没有赢家!", type: MessageType.Raw);
+				
+				ShowInfo(WaitingPlayers,"请等待游戏重新开始...");
+
 				//TODO:报告战况，获得多少积分等等
 			}
 			
