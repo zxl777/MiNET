@@ -214,7 +214,7 @@ namespace TestPlugin.NiceLobby
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 
-			if (players.Length()==0)
+			if (players.Length==0)
 			{
 				WaitingPlayers.Clear();
 				GamingPlayers.Clear();
