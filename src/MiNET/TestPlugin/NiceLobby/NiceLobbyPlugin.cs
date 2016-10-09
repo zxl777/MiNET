@@ -510,6 +510,7 @@ namespace TestPlugin.NiceLobby
 			{
 				e.Cancel = e.Player.GameMode != GameMode.Creative;
 			}
+			e.Cancel = true;
 		}
 
 		private void LevelOnBlockPlace(object sender, BlockPlaceEventArgs e)
@@ -518,6 +519,8 @@ namespace TestPlugin.NiceLobby
 			{
 				e.Cancel = e.Player.GameMode != GameMode.Creative;
 			}
+
+			e.Cancel = true;
 		}
 
 		private float m = 0.1f;
