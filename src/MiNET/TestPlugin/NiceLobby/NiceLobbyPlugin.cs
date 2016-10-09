@@ -213,6 +213,15 @@ namespace TestPlugin.NiceLobby
 			// BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);			
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
+
+			if (players.Length()==0)
+			{
+				WaitingPlayers.Clear();
+				GamingPlayers.Clear();
+				When =GameMoments.Hub;
+				Seconds = 10;
+				return;
+			}
 			
 			var toRemove = new HashSet<Player>();
 			foreach (var player in GamingPlayers) //判断跌落
