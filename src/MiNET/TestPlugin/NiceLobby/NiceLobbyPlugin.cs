@@ -43,7 +43,9 @@ namespace TestPlugin.NiceLobby
 
 		int [,] map48=new int [48,48];
 
-
+			List<Player> GamingPlayers = new List<Player>();
+			List<Player> WaitingPlayers = new List<Player>();
+			
 		[UsedImplicitly] private Timer _popupTimer;
 		[UsedImplicitly] private Timer _GameTimer;
 
@@ -226,9 +228,6 @@ namespace TestPlugin.NiceLobby
 
         private void GameTick(object state)
 		{
-			List<Player> GamingPlayers = new List<Player>();
-			List<Player> WaitingPlayers = new List<Player>();
-
 			// BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);			
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
