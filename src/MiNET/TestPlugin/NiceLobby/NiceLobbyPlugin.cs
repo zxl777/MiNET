@@ -235,7 +235,7 @@ namespace TestPlugin.NiceLobby
 
 					player.DisplayName = $"{player.Username}§0zz";
 
-					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!", type: MessageType.Raw);
+					BlockPartyLevel.BroadcastMessage($"{player.DisplayName} 坠入虚空了!", type: MessageType.Raw);
 				}
 
 				BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
@@ -244,7 +244,7 @@ namespace TestPlugin.NiceLobby
 
 			foreach (var player in WaitingPlayers) //判断跌落
 			{
-				BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
+				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
 			}
 
 			if (GamingPlayers.Count()<1 && When!= GameMoments.Hub) //GameOver
