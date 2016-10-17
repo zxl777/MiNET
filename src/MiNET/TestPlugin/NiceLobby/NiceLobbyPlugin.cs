@@ -224,7 +224,6 @@ namespace TestPlugin.NiceLobby
 
 			foreach (var player in players) //解析出在游戏和等待游戏两个组
 			{
-				BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.NameTag}", type: MessageType.Raw);
 				if (player.NameTag.Contains("Waiting"))
 				// if (true)
 					WaitingPlayers.Add(player);
@@ -233,15 +232,18 @@ namespace TestPlugin.NiceLobby
 
 			}
 
-			return;
+			BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {WaitingPlayers}", type: MessageType.Raw);
+			BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {GamingPlayers}", type: MessageType.Raw);
 
-			if (GamingPlayers.Count()>0)
+			// return;
+
+			// if (GamingPlayers.Count()>0)
 			foreach (var player in GamingPlayers) //判断跌落
 			{
 				if (player.KnownPosition.Y<60)
 				{
 					Tp2Restart(player);
-					player.DisplayName = $"{player.Username}";
+					player.NameTag = "Waiting";
 
 					BlockPartyLevel.BroadcastMessage($"{player.DisplayName} 坠入虚空了!!!", type: MessageType.Raw);
 				}
@@ -249,7 +251,7 @@ namespace TestPlugin.NiceLobby
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
 			}
 
-			if (WaitingPlayers.Count()>0)
+			// if (WaitingPlayers.Count()>0)
 			foreach (var player in WaitingPlayers)
 			{
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
@@ -298,7 +300,7 @@ namespace TestPlugin.NiceLobby
 						foreach (var player in players)
 						{	
 							Tp2Map48(player);
-							player.DisplayName = $"{player.Username}§0cc";
+							player.NameTag = "Playing";
 						}
 					}	
 				break;
