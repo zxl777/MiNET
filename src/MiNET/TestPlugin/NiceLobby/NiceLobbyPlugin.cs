@@ -242,8 +242,9 @@ namespace TestPlugin.NiceLobby
 
 			foreach (var player in players )
 			{
+				player.ClearPopups();
 				player.AddPopup(new Popup()
-				{
+				{					
 					MessageType = MessageType.Tip,
 					Message = $"WaitingPlayers {WaitingPlayers.Count()} GamingPlayers {GamingPlayers.Count()} ",
 					Duration = 20*4
