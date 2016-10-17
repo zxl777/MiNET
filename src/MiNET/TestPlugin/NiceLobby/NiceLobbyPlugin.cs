@@ -45,6 +45,8 @@ namespace TestPlugin.NiceLobby
 				return;
 			}
 
+			UpdatePlayingList();
+
 			Seconds --;
 			switch(When)
 			{
