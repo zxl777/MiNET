@@ -264,12 +264,12 @@ namespace TestPlugin.NiceLobby
 				{
 					Tp2Restart(player);
 					player.NameTag = "Waiting";
-					UpdatePlayingList();
 					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!!!", type: MessageType.Raw);
 				}
-
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
 			}
+
+			UpdatePlayingList();
 
 			// if (WaitingPlayers.Count()>0)
 			foreach (var player in WaitingPlayers)
@@ -321,8 +321,8 @@ namespace TestPlugin.NiceLobby
 						{	
 							Tp2Map48(player);
 							player.NameTag = "Playing";
-							UpdatePlayingList();
 						}
+						UpdatePlayingList();
 					}	
 				break;
 
