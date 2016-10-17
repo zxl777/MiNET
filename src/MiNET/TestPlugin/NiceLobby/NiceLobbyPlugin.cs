@@ -237,19 +237,6 @@ namespace TestPlugin.NiceLobby
 				Seconds = 10;
 				return;
 			}
-
-			// UpdatePlayingList();
-
-			foreach (var player in players )
-			{
-				player.ClearPopups();
-				player.AddPopup(new Popup()
-				{					
-					MessageType = MessageType.Tip,
-					Message = $"WaitingPlayers {WaitingPlayers.Count()} GamingPlayers {GamingPlayers.Count()} ",
-					Duration = 20*4
-				});
-			}
 			
 
 
@@ -414,7 +401,17 @@ namespace TestPlugin.NiceLobby
 					//Priority = 100, MessageType = MessageType.Popup, Message = $"{ChatFormatting.Bold}{message}", Duration = 20*10,
 					Priority = 100, MessageType = MessageType.Popup, Message = message, Duration = 20*10,
 				});
+
+				player.AddPopup(new Popup()
+				{					
+					MessageType = MessageType.Tip,
+					Message = $"WaitingPlayers {WaitingPlayers.Count()} GamingPlayers {GamingPlayers.Count()} ",
+					Duration = 20*4
+				});
+
 			}
+
+
 		}
 
 
