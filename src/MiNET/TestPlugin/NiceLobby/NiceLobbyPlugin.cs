@@ -231,6 +231,8 @@ namespace TestPlugin.NiceLobby
 					WaitingPlayers.Add(player);
 			}
 
+			return;
+
 			if (GamingPlayers.Count()>0)
 			foreach (var player in GamingPlayers) //判断跌落
 			{
