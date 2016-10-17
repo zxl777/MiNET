@@ -57,10 +57,10 @@ namespace TestPlugin.NiceLobby
 			UpdatePlayingList();
 
 
-			if (GamingPlayers.Count()==0 && When!= GameMoments.Hub) //GameOver，都掉下去了
+			if (GamingPlayers.Count()==0 && When!= GameMoments.Hub && WaitingPlayers.Count()>0) //GameOver，都掉下去了
 			{
-				When =GameMoments.Hub;
-				Seconds = 10;
+				When =GameMoments.GameOver;
+				Seconds = 2;
 				ChangeMap();
 				BlockPartyLevel.BroadcastMessage($"本场比赛没有赢家!", type: MessageType.Raw);
 				
@@ -69,10 +69,10 @@ namespace TestPlugin.NiceLobby
 				//TODO:报告战况，获得多少积分等等
 			}
 
-			if (GamingPlayers.Count()==1 && When!= GameMoments.Hub) //GameOver，还剩下一人
+			if (GamingPlayers.Count()==1 && When!= GameMoments.Hub && WaitingPlayers.Count()>0) //GameOver，还剩下一人
 			{
-				When =GameMoments.Hub;
-				Seconds = 10;
+				When =GameMoments.GameOver;
+				Seconds = 3;
 				ChangeMap();
 				Player Winner = GamingPlayers[0];
 				BlockPartyLevel.BroadcastMessage($"{Winner.Username} 赢了本场比赛!", type: MessageType.Raw);
@@ -183,7 +183,20 @@ namespace TestPlugin.NiceLobby
 						Seconds = 5;
 					}	
 				}
-				break;				
+				break;	
+
+				case GameMoments.GameOver:
+				{
+                    Log.Warn("游戏结束");
+					
+					if (Seconds==0) 
+					{
+						When = GameMoments.Hub;
+						ShowInfo(GamingPlayers,"等待游戏开始...");
+						Seconds = 10;
+					}
+				}
+				break;			
 			}
 		}
 
@@ -253,7 +266,8 @@ namespace TestPlugin.NiceLobby
 			Prepare,
             Waitting,
             Moving,
-            Stop
+            Stop,
+			GameOver
         }
         
 		private void Tp2Restart(Player player)
