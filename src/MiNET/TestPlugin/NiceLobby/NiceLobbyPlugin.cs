@@ -226,7 +226,7 @@ namespace TestPlugin.NiceLobby
 			{
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
 				// if (player.DisplayName.Contains("§0"))
-				if (1)
+				if (true)
 					GamingPlayers.Add(player);
 				else
 					WaitingPlayers.Add(player);
