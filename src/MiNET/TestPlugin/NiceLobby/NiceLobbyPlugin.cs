@@ -232,8 +232,20 @@ namespace TestPlugin.NiceLobby
 
 			}
 
-			BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {WaitingPlayers}", type: MessageType.Raw);
-			BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {GamingPlayers}", type: MessageType.Raw);
+			foreach (var player in players )
+			{
+				player.AddPopup(new Popup()
+				{
+					MessageType = MessageType.Tip,
+					Message = $"WaitingPlayers {WaitingPlayers.Count()} GamingPlayers {GamingPlayers.Count()} ",
+					Duration = 20*4
+				});
+			}
+			
+
+
+			// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {WaitingPlayers.Count()}", type: MessageType.Raw);
+			// BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {GamingPlayers.Count()}", type: MessageType.Raw);
 
 			// return;
 
@@ -245,7 +257,7 @@ namespace TestPlugin.NiceLobby
 					Tp2Restart(player);
 					player.NameTag = "Waiting";
 
-					BlockPartyLevel.BroadcastMessage($"{player.DisplayName} 坠入虚空了!!!", type: MessageType.Raw);
+					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!!!", type: MessageType.Raw);
 				}
 
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
