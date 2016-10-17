@@ -235,7 +235,7 @@ namespace TestPlugin.NiceLobby
 
 					player.DisplayName = $"{player.Username}§0zz";
 
-					BlockPartyLevel.BroadcastMessage($"{player.DisplayName} 坠入虚空了!!", type: MessageType.Raw);
+					BlockPartyLevel.BroadcastMessage($"{player.DisplayName} 坠入虚空了!!!", type: MessageType.Raw);
 				}
 
 				BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
