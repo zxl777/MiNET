@@ -232,6 +232,9 @@ namespace TestPlugin.NiceLobby
 					toRemove.Add(player);
 					// GamingPlayers.Remove(player);
 					WaitingPlayers.Add(player);
+
+					player.DisplayName = $"{player.Username}§0zz";
+
 					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!", type: MessageType.Raw);
 				}
 
@@ -286,10 +289,10 @@ namespace TestPlugin.NiceLobby
 						ShowInfo(BlockPartyLevel.GetSpawnedPlayers(),"准备 ...");
 						Seconds = 1;
 						
-						foreach (var player in WaitingPlayers)
+						foreach (var player in players)
 						{	
 							Tp2Map48(player);
-							GamingPlayers.Add(player);
+							player.DisplayName = $"{player.Username}§1cc";
 						}
 
 						WaitingPlayers.Clear();
