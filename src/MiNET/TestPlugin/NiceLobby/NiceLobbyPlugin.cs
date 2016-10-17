@@ -33,200 +33,7 @@ namespace TestPlugin.NiceLobby
 	[Plugin(PluginName = "NiceLobby", Description = "", PluginVersion = "1.0", Author = "MiNET Team"), UsedImplicitly]
 	public class NiceLobbyPlugin : Plugin
 	{
-		private static readonly ILog Log = LogManager.GetLogger(typeof (NiceLobbyPlugin));
-        //Log.Info("NiceLobbyPlugin");
-
-        GameMoments When;
-		int Seconds;
-        Level BlockPartyLevel;
-		string Jsonfile = "0.json";
-
-		int [,] map48=new int [48,48];
-
-			List<Player> GamingPlayers = new List<Player>();
-			List<Player> WaitingPlayers = new List<Player>();
-
-		[UsedImplicitly] private Timer _popupTimer;
-		[UsedImplicitly] private Timer _GameTimer;
-
-		[UsedImplicitly] private Timer _GameTick;
-
-		private long _tick = 0;
-
-		Random rd = new Random();
-
-		protected override void OnEnable()
-		{
-			var server = Context.Server;
-            Log.Warn("OnEnable");
-
-            server.LevelManager.LevelCreated += (sender, args) =>
-			{
-				Level level = args.Level;
-				level.AllowBuild = false;
-				level.AllowBreak = false;
-
-				level.BlockBreak += LevelOnBlockBreak;
-				level.BlockPlace += LevelOnBlockPlace;
-			};
-
-			server.PlayerFactory.PlayerCreated += (sender, args) =>
-			{
-				Player player = args.Player;
-				player.PlayerJoin += OnPlayerJoin;
-				player.PlayerLeave += OnPlayerLeave;
-			};
-
-			//_popupTimer = new Timer(DoDevelopmentPopups, null, 10000, 20000);
-			//_tickTimer = new Timer(LevelTick, null, 0, 50);
-
-			NewWorld();
-
-			When =GameMoments.Hub;
-			Seconds = 10;
-
-
-			_GameTimer = new Timer(GameTick, null, 1000, 2000);
-
-			
-		}
-
-        enum GameMoments
-        {
-			Hub,
-			Prepare,
-            Waitting,
-            Moving,
-            Stop
-        }
-        
-		private void Tp2Restart(Player player)
-		{
-			ThreadPool.QueueUserWorkItem(delegate(object ops)
-					{
-						player.Teleport(new PlayerLocation
-						{
-							X = 56,
-							Y = 73,
-							Z = 0,
-							Yaw = 90,
-							Pitch = 20,
-							HeadYaw = 90
-						});
-					}, null);
-		}
-
-
-			// inventory.Slots[c++] = new ItemAir();
-
-		private void SetHotBar(Player player,short blockid,int num)
-		{
-			var inventory = player.Inventory;
-
-			switch (num)
-			{
-				case 0:
-				{
-					byte c = 0;
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					// inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemBlock(new Block(102), 0) {Count = 1};
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-
-					break;
-				}
-				case 1:
-				{
-					byte c = 0;
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-
-					break;
-				}
-				case 2:
-				{
-					byte c = 0;
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemAir();
-
-					break;
-				}
-				
-				case 3:
-				{
-					byte c = 0;
-					inventory.Slots[c++] = new ItemAir();
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
-					inventory.Slots[c++] = new ItemAir();
-
-					break;
-				}
-				
-				case 4:
-				{
-					byte c = 0;
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 5) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
-					inventory.Slots[c++] = new ItemBlock(new Block(35), 5) {Count = 1};
-
-					break;
-				}
-			}
-
-			player.SendPlayerInventory();
-		}
-
-		private void UpdatePlayingList() //解析出在游戏和等待游戏两个组
-		{
-			var players = BlockPartyLevel.GetSpawnedPlayers();
-			if (players.Length==0) return;
-
-			WaitingPlayers.Clear();
-			GamingPlayers.Clear();
-
-			foreach (var player in players) //解析出在游戏和等待游戏两个组
-			{
-				if (player.NameTag.Contains("Waiting"))
-					WaitingPlayers.Add(player);
-				else
-					GamingPlayers.Add(player);
-			}
-		}
-
-
-        private void GameTick(object state)
+		private void GameTick(object state)
 		{
 			// BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);			
 
@@ -382,6 +189,116 @@ namespace TestPlugin.NiceLobby
 			}
 		}
 
+		private static readonly ILog Log = LogManager.GetLogger(typeof (NiceLobbyPlugin));
+        //Log.Info("NiceLobbyPlugin");
+
+        GameMoments When;
+		int Seconds;
+        Level BlockPartyLevel;
+		string Jsonfile = "0.json";
+
+		int [,] map48=new int [48,48];
+
+			List<Player> GamingPlayers = new List<Player>();
+			List<Player> WaitingPlayers = new List<Player>();
+
+		[UsedImplicitly] private Timer _popupTimer;
+		[UsedImplicitly] private Timer _GameTimer;
+
+		[UsedImplicitly] private Timer _GameTick;
+
+		private long _tick = 0;
+
+		Random rd = new Random();
+
+
+
+		protected override void OnEnable()
+		{
+			var server = Context.Server;
+            Log.Warn("OnEnable");
+
+            server.LevelManager.LevelCreated += (sender, args) =>
+			{
+				Level level = args.Level;
+				level.AllowBuild = false;
+				level.AllowBreak = false;
+
+				level.BlockBreak += LevelOnBlockBreak;
+				level.BlockPlace += LevelOnBlockPlace;
+			};
+
+			server.PlayerFactory.PlayerCreated += (sender, args) =>
+			{
+				Player player = args.Player;
+				player.PlayerJoin += OnPlayerJoin;
+				player.PlayerLeave += OnPlayerLeave;
+			};
+
+			//_popupTimer = new Timer(DoDevelopmentPopups, null, 10000, 20000);
+			//_tickTimer = new Timer(LevelTick, null, 0, 50);
+
+			NewWorld();
+
+			When =GameMoments.Hub;
+			Seconds = 10;
+
+
+			_GameTimer = new Timer(GameTick, null, 1000, 2000);
+
+			
+		}
+
+        enum GameMoments
+        {
+			Hub,
+			Prepare,
+            Waitting,
+            Moving,
+            Stop
+        }
+        
+		private void Tp2Restart(Player player)
+		{
+			ThreadPool.QueueUserWorkItem(delegate(object ops)
+					{
+						player.Teleport(new PlayerLocation
+						{
+							X = 56,
+							Y = 73,
+							Z = 0,
+							Yaw = 90,
+							Pitch = 20,
+							HeadYaw = 90
+						});
+					}, null);
+		}
+
+
+			// inventory.Slots[c++] = new ItemAir();
+
+
+
+		private void UpdatePlayingList() //解析出在游戏和等待游戏两个组
+		{
+			var players = BlockPartyLevel.GetSpawnedPlayers();
+			if (players.Length==0) return;
+
+			WaitingPlayers.Clear();
+			GamingPlayers.Clear();
+
+			foreach (var player in players) //解析出在游戏和等待游戏两个组
+			{
+				if (player.NameTag.Contains("Waiting"))
+					WaitingPlayers.Add(player);
+				else
+					GamingPlayers.Add(player);
+			}
+		}
+
+
+
+
 
 		public void ShowInfo(List <Player>players,string message)
 		{
@@ -414,6 +331,95 @@ namespace TestPlugin.NiceLobby
 
 		}
 
+
+		private void SetHotBar(Player player,short blockid,int num)
+		{
+			var inventory = player.Inventory;
+
+			switch (num)
+			{
+				case 0:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					// inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(102), 0) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+
+					break;
+				}
+				case 1:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+
+					break;
+				}
+				case 2:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemAir();
+
+					break;
+				}
+				
+				case 3:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemAir();
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
+					inventory.Slots[c++] = new ItemAir();
+
+					break;
+				}
+				
+				case 4:
+				{
+					byte c = 0;
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 5) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(159), blockid) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 14) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 1) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 4) {Count = 1};
+					inventory.Slots[c++] = new ItemBlock(new Block(35), 5) {Count = 1};
+
+					break;
+				}
+			}
+
+			player.SendPlayerInventory();
+		}
 
 		public void Tp2Map48(Player player)
 		{
