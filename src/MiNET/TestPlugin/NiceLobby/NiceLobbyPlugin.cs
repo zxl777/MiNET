@@ -206,6 +206,24 @@ namespace TestPlugin.NiceLobby
 			player.SendPlayerInventory();
 		}
 
+		private UpdatePlayingList() //解析出在游戏和等待游戏两个组
+		{
+			var players = BlockPartyLevel.GetSpawnedPlayers();
+			if (players.Length==0) return;
+
+			WaitingPlayers.Clear();
+			GamingPlayers.Clear();
+
+			foreach (var player in players) //解析出在游戏和等待游戏两个组
+			{
+				if (player.NameTag.Contains("Waiting"))
+					WaitingPlayers.Add(player);
+				else
+					GamingPlayers.Add(player);
+			}
+		}
+
+
         private void GameTick(object state)
 		{
 			List<Player> GamingPlayers = new List<Player>();
@@ -221,16 +239,7 @@ namespace TestPlugin.NiceLobby
 				return;
 			}
 
-
-			foreach (var player in players) //解析出在游戏和等待游戏两个组
-			{
-				if (player.NameTag.Contains("Waiting"))
-				// if (true)
-					WaitingPlayers.Add(player);
-				else
-					GamingPlayers.Add(player);
-
-			}
+			UpdatePlayingList();
 
 			foreach (var player in players )
 			{
@@ -256,7 +265,7 @@ namespace TestPlugin.NiceLobby
 				{
 					Tp2Restart(player);
 					player.NameTag = "Waiting";
-
+					UpdatePlayingList();
 					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!!!", type: MessageType.Raw);
 				}
 
@@ -313,6 +322,7 @@ namespace TestPlugin.NiceLobby
 						{	
 							Tp2Map48(player);
 							player.NameTag = "Playing";
+							UpdatePlayingList();
 						}
 					}	
 				break;
@@ -537,6 +547,7 @@ namespace TestPlugin.NiceLobby
 			player.SpawnLevel(BlockPartyLevel);
 
 			player.NameTag = "Waiting";
+			UpdatePlayingList();
 			Tp2Restart(player);
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Green}+{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
