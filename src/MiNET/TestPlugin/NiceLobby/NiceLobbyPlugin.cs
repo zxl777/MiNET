@@ -224,12 +224,12 @@ namespace TestPlugin.NiceLobby
 
 			foreach (var player in players) //解析出在游戏和等待游戏两个组
 			{
-				BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.DisplayName}", type: MessageType.Raw);
-				// if (player.DisplayName.Contains("§0"))
-				if (true)
-					GamingPlayers.Add(player);
-				else
+				BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.NameTag}", type: MessageType.Raw);
+				if (player.NameTag.Contains("Waiting"))
+				// if (true)
 					WaitingPlayers.Add(player);
+				else
+					GamingPlayers.Add(player);
 
 			}
 
@@ -522,6 +522,7 @@ namespace TestPlugin.NiceLobby
 			Log.Warn(BlockPartyLevel.LevelId);
 			player.SpawnLevel(BlockPartyLevel);
 
+			player.NameTag = "Waiting";
 			Tp2Restart(player);
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Green}+{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
