@@ -33,26 +33,18 @@ namespace TestPlugin.NiceLobby
 	[Plugin(PluginName = "NiceLobby", Description = "", PluginVersion = "1.0", Author = "MiNET Team"), UsedImplicitly]
 	public class NiceLobbyPlugin : Plugin
 	{
+		// 游戏逻辑部分，一秒钟调用一次
 		private void GameTick(object state)
 		{
-			// BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);			
-
 			var players = BlockPartyLevel.GetSpawnedPlayers();
-			if (players.Length==0)
+			
+			if (players.Length==0) // 没有玩家不开始
 			{
 				When =GameMoments.Hub;
 				Seconds = 10;
 				return;
 			}
-			
 
-
-			// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {WaitingPlayers.Count()}", type: MessageType.Raw);
-			// BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {GamingPlayers.Count()}", type: MessageType.Raw);
-
-			// return;
-
-			// if (GamingPlayers.Count()>0)
 			foreach (var player in GamingPlayers) //判断跌落
 			{
 				if (player.KnownPosition.Y<60)
@@ -61,48 +53,47 @@ namespace TestPlugin.NiceLobby
 					player.NameTag = "Waiting";
 					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!!!", type: MessageType.Raw);
 				}
-				// BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
 			}
-
 			UpdatePlayingList();
 
-			// if (WaitingPlayers.Count()>0)
-			foreach (var player in WaitingPlayers)
-			{
-				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
-			}
 
-			if (GamingPlayers.Count()<1 && When!= GameMoments.Hub) //GameOver
+			if (GamingPlayers.Count()==0 && When!= GameMoments.Hub) //GameOver，都掉下去了
 			{
 				When =GameMoments.Hub;
 				Seconds = 10;
 				ChangeMap();
-				if (GamingPlayers.Count()==1)
-				{
-					Player Winner = GamingPlayers[0];
-					BlockPartyLevel.BroadcastMessage($"{Winner.Username} 赢了本场比赛!", type: MessageType.Raw);
-				}
-				else
-					BlockPartyLevel.BroadcastMessage($"本场比赛没有赢家!", type: MessageType.Raw);
+				BlockPartyLevel.BroadcastMessage($"本场比赛没有赢家!", type: MessageType.Raw);
 				
 				ShowInfo(WaitingPlayers,"请等待游戏重新开始...");
 
 				//TODO:报告战况，获得多少积分等等
 			}
+
+			if (GamingPlayers.Count()==1 && When!= GameMoments.Hub) //GameOver，还剩下一人
+			{
+				When =GameMoments.Hub;
+				Seconds = 10;
+				ChangeMap();
+				Player Winner = GamingPlayers[0];
+				BlockPartyLevel.BroadcastMessage($"{Winner.Username} 赢了本场比赛!", type: MessageType.Raw);
+				
+				ShowInfo(WaitingPlayers,"请等待游戏重新开始...");
+
+				//TODO:报告战况，获得多少积分等等
+			}
+
 			
 			Seconds --;
 			switch(When)
 			{
 				case GameMoments.Hub:
+				{
                     Log.Warn("大厅等待游戏开始...");
 					if (WaitingPlayers.Count()==0) //没有玩家时，游戏不启动
 					{
 						Seconds ++;
 						break;
 					}
-
-					// ShootSound sound = new ShootSound(new Vector3(56, 73, 0));
-					// BlockPartyLevel.MakeSound(sound);
 
 					ShowInfo(WaitingPlayers,$"等待游戏开始 {Seconds}...");
 					
@@ -118,10 +109,13 @@ namespace TestPlugin.NiceLobby
 							player.NameTag = "Playing";
 						}
 						UpdatePlayingList();
-					}	
+					}
+				}
 				break;
 
+
 				case GameMoments.Prepare:
+				{
                     Log.Warn("准备...");
 					
 					if (Seconds==0) 
@@ -136,9 +130,11 @@ namespace TestPlugin.NiceLobby
 						Seconds = 5;
 						ChangeMap();
 					}	
+				}
 				break;
 
 				case GameMoments.Moving:
+				{
                     Log.Warn("移动，找到正确方块...");
 					
 					foreach (var player in GamingPlayers)
@@ -155,12 +151,11 @@ namespace TestPlugin.NiceLobby
 						Seconds = 2;
 						DigMap();
 					}
-
-
-
+				}
 				break;
 
 				case GameMoments.Stop:
+				{
                     Log.Warn("静止不动");
 					
 					if (Seconds==0) 
@@ -170,9 +165,11 @@ namespace TestPlugin.NiceLobby
 						Seconds = 1;
 						ChangeMap();
 					}	
+				}
 				break;
 
 				case GameMoments.Waitting:
+				{
                     Log.Warn("等待...");
 
 					if (Seconds==0) 
@@ -185,6 +182,7 @@ namespace TestPlugin.NiceLobby
 						}
 						Seconds = 5;
 					}	
+				}
 				break;				
 			}
 		}
