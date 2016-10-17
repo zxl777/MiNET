@@ -206,7 +206,7 @@ namespace TestPlugin.NiceLobby
 			player.SendPlayerInventory();
 		}
 
-		private UpdatePlayingList() //解析出在游戏和等待游戏两个组
+		private void UpdatePlayingList() //解析出在游戏和等待游戏两个组
 		{
 			var players = BlockPartyLevel.GetSpawnedPlayers();
 			if (players.Length==0) return;
