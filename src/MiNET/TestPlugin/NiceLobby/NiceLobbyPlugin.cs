@@ -57,30 +57,6 @@ namespace TestPlugin.NiceLobby
 			UpdatePlayingList();
 
 
-			if (GamingPlayers.Count()==0 && When!= GameMoments.Hub && WaitingPlayers.Count()>0) //GameOver，都掉下去了
-			{
-				When =GameMoments.GameOver;
-				Seconds = 2;
-				ChangeMap();
-				BlockPartyLevel.BroadcastMessage($"本场比赛没有赢家!", type: MessageType.Raw);
-				
-				ShowInfo(WaitingPlayers,"请等待游戏重新开始...");
-
-				//TODO:报告战况，获得多少积分等等
-			}
-
-			if (GamingPlayers.Count()==1 && When!= GameMoments.Hub && WaitingPlayers.Count()>0) //GameOver，还剩下一人
-			{
-				When =GameMoments.GameOver;
-				Seconds = 3;
-				ChangeMap();
-				Player Winner = GamingPlayers[0];
-				BlockPartyLevel.BroadcastMessage($"{Winner.Username} 赢了本场比赛!", type: MessageType.Raw);
-				
-				ShowInfo(WaitingPlayers,"请等待游戏重新开始...");
-
-				//TODO:报告战况，获得多少积分等等
-			}
 
 			
 			Seconds --;
@@ -157,7 +133,33 @@ namespace TestPlugin.NiceLobby
 				case GameMoments.Stop:
 				{
                     Log.Warn("静止不动");
-					
+
+					if (GamingPlayers.Count()==0 && WaitingPlayers.Count()>0) //GameOver，都掉下去了
+					{
+						When =GameMoments.GameOver;
+						Seconds = 2;
+						ChangeMap();
+						BlockPartyLevel.BroadcastMessage($"本场比赛没有赢家!", type: MessageType.Raw);
+						
+						ShowInfo(WaitingPlayers,"请等待游戏重新开始...");
+
+						//TODO:报告战况，获得多少积分等等
+					}
+
+					if (GamingPlayers.Count()==1  && WaitingPlayers.Count()>0) //GameOver，还剩下一人
+					{
+						When =GameMoments.GameOver;
+						Seconds = 3;
+						ChangeMap();
+						Player Winner = GamingPlayers[0];
+						BlockPartyLevel.BroadcastMessage($"{Winner.Username} 赢了本场比赛!", type: MessageType.Raw);
+						
+						ShowInfo(WaitingPlayers,"请等待游戏重新开始...");
+
+						//TODO:报告战况，获得多少积分等等
+					}
+
+
 					if (Seconds==0) 
 					{
 						When = GameMoments.Waitting;
