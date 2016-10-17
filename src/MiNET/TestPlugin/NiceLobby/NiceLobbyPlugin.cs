@@ -82,7 +82,7 @@ namespace TestPlugin.NiceLobby
 
 			When =GameMoments.Hub;
 			Seconds = 10;
-			ShowInfo(WaitingPlayers,"等待游戏开始...");
+
 
 			_GameTimer = new Timer(GameTick, null, 1000, 2000);
 
