@@ -45,7 +45,7 @@ namespace TestPlugin.NiceLobby
 
 			List<Player> GamingPlayers = new List<Player>();
 			List<Player> WaitingPlayers = new List<Player>();
-			
+
 		[UsedImplicitly] private Timer _popupTimer;
 		[UsedImplicitly] private Timer _GameTimer;
 
@@ -238,7 +238,7 @@ namespace TestPlugin.NiceLobby
 				return;
 			}
 
-			UpdatePlayingList();
+			// UpdatePlayingList();
 
 			foreach (var player in players )
 			{
