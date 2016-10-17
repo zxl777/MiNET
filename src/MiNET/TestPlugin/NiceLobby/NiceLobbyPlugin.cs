@@ -43,8 +43,6 @@ namespace TestPlugin.NiceLobby
 
 		int [,] map48=new int [48,48];
 
-		List<Player> GamingPlayers = new List<Player>();
-		List<Player> WaitingPlayers = new List<Player>();
 
 		[UsedImplicitly] private Timer _popupTimer;
 		[UsedImplicitly] private Timer _GameTimer;
@@ -210,39 +208,44 @@ namespace TestPlugin.NiceLobby
 
         private void GameTick(object state)
 		{
+			List<Player> GamingPlayers = new List<Player>();
+			List<Player> WaitingPlayers = new List<Player>();
+
 			// BlockPartyLevel.BroadcastMessage($"When {When}, Seconds {Seconds} ", type: MessageType.Raw);			
 
 			var players = BlockPartyLevel.GetSpawnedPlayers();
-
 			if (players.Length==0)
 			{
-				WaitingPlayers.Clear();
-				GamingPlayers.Clear();
 				When =GameMoments.Hub;
 				Seconds = 10;
 				return;
 			}
+
+
+			foreach (var player in players) //解析出在游戏和等待游戏两个组
+			{
+				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
+				if (player.DisplayName.Contains("§0"))
+					GamingPlayers.Add(player);
+				else
+					WaitingPlayers.Add(player);
+			}
+
 			
-			var toRemove = new HashSet<Player>();
 			foreach (var player in GamingPlayers) //判断跌落
 			{
 				if (player.KnownPosition.Y<60)
 				{
 					Tp2Restart(player);
-					toRemove.Add(player);
-					// GamingPlayers.Remove(player);
-					WaitingPlayers.Add(player);
-
-					player.DisplayName = $"{player.Username}§0zz";
+					player.DisplayName = $"{player.Username}";
 
 					BlockPartyLevel.BroadcastMessage($"{player.DisplayName} 坠入虚空了!!!", type: MessageType.Raw);
 				}
 
-				BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
+				// BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
 			}
-			GamingPlayers.RemoveAll(toRemove.Contains);
 
-			foreach (var player in WaitingPlayers) //判断跌落
+			foreach (var player in WaitingPlayers)
 			{
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
 			}
@@ -256,8 +259,6 @@ namespace TestPlugin.NiceLobby
 				{
 					Player Winner = GamingPlayers[0];
 					BlockPartyLevel.BroadcastMessage($"{Winner.Username} 赢了本场比赛!", type: MessageType.Raw);
-					WaitingPlayers.Add(Winner);
-					GamingPlayers.Clear();	
 				}
 				else
 					BlockPartyLevel.BroadcastMessage($"本场比赛没有赢家!", type: MessageType.Raw);
@@ -292,10 +293,8 @@ namespace TestPlugin.NiceLobby
 						foreach (var player in players)
 						{	
 							Tp2Map48(player);
-							player.DisplayName = $"{player.Username}§1cc";
+							player.DisplayName = $"{player.Username}§0cc";
 						}
-
-						WaitingPlayers.Clear();
 					}	
 				break;
 
@@ -504,9 +503,6 @@ namespace TestPlugin.NiceLobby
 			if (player == null) throw new ArgumentNullException(nameof(eventArgs.Player));
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Red}-{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
-
-			WaitingPlayers.Remove(player);
-			GamingPlayers.Remove(player);
 		}
 
 		private void OnPlayerJoin(object o, PlayerEventArgs eventArgs)
@@ -522,7 +518,6 @@ namespace TestPlugin.NiceLobby
 			player.SpawnLevel(BlockPartyLevel);
 
 			Tp2Restart(player);
-			WaitingPlayers.Add(player);
 
 			level.BroadcastMessage($"{ChatColors.Gold}[{ChatColors.Green}+{ChatColors.Gold}]{ChatFormatting.Reset} {player.Username}");
 		}
