@@ -45,20 +45,6 @@ namespace TestPlugin.NiceLobby
 				return;
 			}
 
-			foreach (var player in GamingPlayers) //判断跌落
-			{
-				if (player.KnownPosition.Y<60)
-				{
-					Tp2Restart(player);
-					player.NameTag = "Waiting";
-					BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!!!", type: MessageType.Raw);
-				}
-			}
-			UpdatePlayingList();
-
-
-
-			
 			Seconds --;
 			switch(When)
 			{
@@ -133,6 +119,18 @@ namespace TestPlugin.NiceLobby
 				case GameMoments.Stop:
 				{
                     Log.Warn("静止不动");
+
+					foreach (var player in GamingPlayers) //判断跌落
+					{
+						if (player.KnownPosition.Y<60)
+						{
+							Tp2Restart(player);
+							player.NameTag = "Waiting";
+							BlockPartyLevel.BroadcastMessage($"{player.Username} 坠入虚空了!!!", type: MessageType.Raw);
+						}
+					}
+					UpdatePlayingList();
+
 
 					if (GamingPlayers.Count()==0 && WaitingPlayers.Count()>0) //GameOver，都掉下去了
 					{
