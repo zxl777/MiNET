@@ -225,10 +225,10 @@ namespace TestPlugin.NiceLobby
 			foreach (var player in players) //解析出在游戏和等待游戏两个组
 			{
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
-				if (player.DisplayName.Contains("§0"))
-					GamingPlayers.Add(player);
-				else
-					WaitingPlayers.Add(player);
+				// if (player.DisplayName.Contains("§0"))
+				// 	GamingPlayers.Add(player);
+				// else
+				// 	WaitingPlayers.Add(player);
 			}
 
 			return;
