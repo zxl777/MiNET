@@ -224,7 +224,7 @@ namespace TestPlugin.NiceLobby
 
 			foreach (var player in players) //解析出在游戏和等待游戏两个组
 			{
-				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
+				BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.DisplayName}", type: MessageType.Raw);
 				// if (player.DisplayName.Contains("§0"))
 				if (true)
 					GamingPlayers.Add(player);
