@@ -229,6 +229,7 @@ namespace TestPlugin.NiceLobby
 				// 	GamingPlayers.Add(player);
 				// else
 				// 	WaitingPlayers.Add(player);
+				WaitingPlayers.Add(player);
 			}
 
 			return;
