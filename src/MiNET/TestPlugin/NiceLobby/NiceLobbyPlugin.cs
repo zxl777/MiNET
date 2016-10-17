@@ -231,7 +231,7 @@ namespace TestPlugin.NiceLobby
 					WaitingPlayers.Add(player);
 			}
 
-			
+			if (GamingPlayers.Count()>0)
 			foreach (var player in GamingPlayers) //判断跌落
 			{
 				if (player.KnownPosition.Y<60)
@@ -245,6 +245,7 @@ namespace TestPlugin.NiceLobby
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:GamingPlayers {player.Username}", type: MessageType.Raw);
 			}
 
+			if (WaitingPlayers.Count()>0)
 			foreach (var player in WaitingPlayers)
 			{
 				// BlockPartyLevel.BroadcastMessage($"DEBUG:WaitingPlayers {player.Username}", type: MessageType.Raw);
